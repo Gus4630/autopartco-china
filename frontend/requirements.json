@@ -1,0 +1,1503 @@
+{
+  "projectName": "autopartco-china-frontend",
+  "description": "Modern, SEO-optimized bilingual (English/Chinese) frontend website for autopartco-china.com using Nuxt 4 that displays auto parts catalog with dynamic routing based on product slugs.",
+  "techStack": {
+    "framework": "Nuxt 4 (Vue 3)",
+    "language": "JavaScript (avoid TypeScript)",
+    "styling": "Tailwind CSS",
+    "seo": "Nuxt SEO module (@nuxtjs/seo)",
+    "stateManagement": "Pinia (if needed)",
+    "utilities": "VueUse",
+    "i18n": "@nuxtjs/i18n for bilingual support"
+  },
+  "languages": {
+    "supported": ["en", "zh"],
+    "default": "en",
+    "implementation": "All content must be available in both English and Chinese"
+  },
+  "companyInformation": {
+    "chineseName": "山东百基安国际贸易有限公司",
+    "englishName": "Shandong Baijian International Trade Co., Ltd",
+    "website": "www.sdbja.com",
+    "contact": {
+      "address": {
+        "zh": "济南市天桥区蓝翔路泉利重配城3-104号",
+        "en": "No. 3-104, Quanli Heavy Parts City, Lanxiang Road, Tianqiao District, Jinan City"
+      },
+      "phone": "18660429678",
+      "landline": "0531-85702200",
+      "email": "1745668156@qq.com",
+      "wechat": "Available (QR code)"
+    },
+    "aboutUs": {
+      "zh": "山东百基安国际贸易有限公司于2008年10月份成立，主要经营重汽、潍柴各款汽车所有装车配件,现发展为重汽潍柴发动机配件专业的销售公司。公司目前销售网络普及全国,公司秉承诚实守信、货真价实、保质保量、顾客至上、信誉第一的原则为广大汽配界的人士满足服务,严格地为客户把好产品质量关和提供优秀的售前、售中、售后服务。产品涉及天然气发动机、矿山车、特种车、改装车等。在企业管理方面,公司秉承着"聚集一流人才提供一流服务;实行一流管理创立一流企业"的企业目标。",
+      "en": "Shandong Baijian International Trade Co., Ltd was established in October 2008. We mainly deal with all vehicle parts for Sinotruk and Weichai vehicles, and have now developed into a professional sales company for Sinotruk and Weichai engine parts. The company's sales network currently covers the whole country. We adhere to the principles of honesty, genuine products at fair prices, quality assurance, customer first, and reputation first to serve the auto parts industry, strictly controlling product quality and providing excellent pre-sales, sales, and after-sales services. Our products cover natural gas engines, mining vehicles, special vehicles, modified vehicles, etc. In terms of enterprise management, the company adheres to the corporate goal of 'gathering first-class talents to provide first-class services; implementing first-class management to create a first-class enterprise'."
+    },
+    "tagline": {
+      "zh": "为您提供行业解决方案！",
+      "en": "Providing Industry Solutions for You!"
+    }
+  },
+  "dataStructures": {
+    "Product": {
+      "id": "number",
+      "slug": "string (URL-friendly unique identifier)",
+      "adCategoryFactory": "string (Part category/type)",
+      "address": "string (Location/warehouse address)",
+      "manufacturerCountry": "string (Manufacturing country)",
+      "condition": "enum: NEW | USED | REFURBISHED | RECONDITIONED",
+      "qualityGrade": "enum: GENUINE_OEM | OEM_EQUIVALENT | AFTERMARKET_PREMIUM | AFTERMARKET_STANDARD",
+      "carBrand": "string (e.g., Mercedes, BMW, Toyota, Sinotruk, Weichai)",
+      "carModel": "string (Specific model)",
+      "partYear": "number (Manufacturing/compatible year)",
+      "supplierCode": "string (Supplier/contractor reference code)",
+      "priceType": "enum: FIXED | NEGOTIABLE | CONTACT_FOR_PRICE | QUOTE_REQUIRED",
+      "fixedPrice": "number (optional, only if priceType is FIXED)",
+      "currency": "string (e.g., USD, EUR, CNY)",
+      "imageUrls": "string[] (Array of image URLs)",
+      "description": {
+        "en": "string (English description)",
+        "zh": "string (Chinese description)"
+      },
+      "stockQuantity": "number",
+      "isActive": "boolean",
+      "createdAt": "string (ISO date)",
+      "updatedAt": "string (ISO date)"
+    },
+    "Category": {
+      "id": "number",
+      "name": {
+        "en": "string",
+        "zh": "string"
+      },
+      "slug": "string",
+      "description": {
+        "en": "string (optional)",
+        "zh": "string (optional)"
+      },
+      "productCount": "number (optional)"
+    },
+    "Brand": {
+      "id": "number",
+      "name": "string",
+      "slug": "string",
+      "logoUrl": "string (optional)"
+    }
+  },
+  "apiEndpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/products/{slug}",
+      "description": "Fetch single product by slug",
+      "response": "Product"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/products",
+      "description": "List products with pagination (simple filtering)",
+      "queryParams": ["page", "size", "category", "brand"],
+      "response": {
+        "content": "Product[]",
+        "totalElements": "number",
+        "totalPages": "number"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/products/search",
+      "description": "Advanced search with filtering",
+      "requestBody": {
+        "query": "string (optional)",
+        "filters": {
+          "category": "string (optional)",
+          "brand": "string (optional)",
+          "model": "string (optional)",
+          "condition": "string[] (optional)",
+          "qualityGrade": "string[] (optional)",
+          "priceMin": "number (optional)",
+          "priceMax": "number (optional)",
+          "partYear": "number (optional)"
+        },
+        "page": "number",
+        "size": "number",
+        "sort": "string (e.g., 'createdAt,desc')"
+      },
+      "response": {
+        "content": "Product[]",
+        "totalElements": "number",
+        "totalPages": "number"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/categories",
+      "description": "List all categories",
+      "response": "Category[]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/brands",
+      "description": "List all brands",
+      "response": "Brand[]"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "name": "Homepage"
+    },
+    {
+      "path": "/categories",
+      "name": "All categories grid"
+    },
+    {
+      "path": "/category/[slug]",
+      "name": "Category product listing"
+    },
+    {
+      "path": "/product/[slug]",
+      "name": "Product detail page",
+      "priority": "HIGHEST",
+      "examples": [
+        "/product/brake-pads-sinotruk-howo-bp-12345",
+        "/product/engine-parts-weichai-wp10-ep-98765"
+      ]
+    },
+    {
+      "path": "/brands",
+      "name": "All brands grid"
+    },
+    {
+      "path": "/brand/[slug]",
+      "name": "Brand product listing"
+    },
+    {
+      "path": "/search",
+      "name": "Search results page"
+    },
+    {
+      "path": "/about",
+      "name": "About us page"
+    },
+    {
+      "path": "/contact",
+      "name": "Contact page"
+    }
+  ],
+  "pages": {
+    "productDetail": {
+      "priority": "HIGHEST",
+      "path": "/product/[slug].vue",
+      "bilingual": true,
+      "seoMeta": {
+        "title": {
+          "en": "{adCategoryFactory} for {carBrand} {carModel} | autopartco-china.com",
+          "zh": "{adCategoryFactory} {carBrand} {carModel} | 山东百基安国际贸易有限公司"
+        },
+        "description": "{description substring 0-160 in current language}",
+        "ogTitle": "{adCategoryFactory} - {carBrand} {carModel}",
+        "ogDescription": "{description substring 0-160 in current language}",
+        "ogImage": "{imageUrls[0] or /og-default.jpg}",
+        "ogUrl": "https://autopartco-china.com/product/{slug}",
+        "twitterCard": "summary_large_image"
+      },
+      "structuredData": {
+        "type": "Product",
+        "name": "{adCategoryFactory} for {carBrand} {carModel}",
+        "image": "{imageUrls}",
+        "description": "{description}",
+        "sku": "{supplierCode}",
+        "offers": {
+          "type": "Offer",
+          "price": "{fixedPrice if priceType === FIXED}",
+          "priceCurrency": "{currency or USD}",
+          "availability": "{InStock if stockQuantity > 0, else OutOfStock}",
+          "priceValidUntil": "{30 days from now}"
+        }
+      },
+      "layout": {
+        "sections": [
+          {
+            "name": "Header",
+            "sticky": true,
+            "includes": ["Logo", "Language switcher (EN/中文)", "Navigation", "Search"]
+          },
+          {
+            "name": "Breadcrumb",
+            "content": {
+              "en": "Home > Category > Product",
+              "zh": "首页 > 分类 > 产品"
+            }
+          },
+          {
+            "name": "Main Content",
+            "grid": "2 columns on desktop, 1 column on mobile",
+            "left": {
+              "component": "ProductGallery",
+              "features": [
+                "Main image display",
+                "Thumbnail navigation (4-5 images)",
+                "Click thumbnail to change main",
+                "Click main to open lightbox/modal",
+                "Zoom on hover (optional)",
+                "Lazy loading",
+                "Placeholder if no images",
+                "Swipe support on mobile"
+              ]
+            },
+            "right": {
+              "sections": [
+                {
+                  "name": "Product Title",
+                  "content": "{adCategoryFactory} for {carBrand} {carModel}",
+                  "bilingual": true
+                },
+                {
+                  "name": "Rating",
+                  "content": "Stars placeholder"
+                },
+                {
+                  "name": "Badges",
+                  "items": [
+                    {
+                      "type": "Condition badge",
+                      "colorCoded": true,
+                      "bilingual": true
+                    },
+                    {
+                      "type": "Quality badge",
+                      "bilingual": true
+                    }
+                  ]
+                },
+                {
+                  "name": "Price Section",
+                  "component": "PriceDisplay",
+                  "dynamic": true,
+                  "bilingual": true
+                },
+                {
+                  "name": "Quick Actions",
+                  "buttons": [
+                    {
+                      "name": "WhatsApp",
+                      "phone": "+86 18660429678",
+                      "bilingual": true
+                    },
+                    {
+                      "name": "Email",
+                      "address": "1745668156@qq.com",
+                      "bilingual": true
+                    },
+                    {
+                      "name": "Phone",
+                      "number": "0531-85702200",
+                      "bilingual": true
+                    },
+                    {
+                      "name": "Share",
+                      "bilingual": true
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "Specifications Table",
+            "bilingual": true,
+            "fields": [
+              {
+                "label": {"en": "Category", "zh": "类别"},
+                "value": "{adCategoryFactory}"
+              },
+              {
+                "label": {"en": "Brand", "zh": "品牌"},
+                "value": "{carBrand}"
+              },
+              {
+                "label": {"en": "Model", "zh": "型号"},
+                "value": "{carModel}"
+              },
+              {
+                "label": {"en": "Year", "zh": "年份"},
+                "value": "{partYear}"
+              },
+              {
+                "label": {"en": "Condition", "zh": "状态"},
+                "value": "{condition}"
+              },
+              {
+                "label": {"en": "Quality", "zh": "质量"},
+                "value": "{qualityGrade}"
+              },
+              {
+                "label": {"en": "Origin", "zh": "产地"},
+                "value": "{manufacturerCountry}"
+              },
+              {
+                "label": {"en": "Supplier Code", "zh": "供应商代码"},
+                "value": "{supplierCode}"
+              },
+              {
+                "label": {"en": "Location", "zh": "地址"},
+                "value": "{address}"
+              },
+              {
+                "label": {"en": "Stock", "zh": "库存"},
+                "value": "{stockQuantity} units"
+              }
+            ]
+          },
+          {
+            "name": "Product Description",
+            "content": "{description in current language}",
+            "bilingual": true
+          },
+          {
+            "name": "Related Products",
+            "component": "ProductGrid",
+            "filter": "Same category or brand",
+            "bilingual": true
+          },
+          {
+            "name": "Footer"
+          }
+        ]
+      },
+      "priceDisplayLogic": {
+        "FIXED": {
+          "display": "{currency}{fixedPrice}",
+          "label": {"en": "Price", "zh": "价格"},
+          "ctaText": {"en": "Contact to Order", "zh": "联系订购"},
+          "ctaAction": "contact"
+        },
+        "NEGOTIABLE": {
+          "display": {
+            "en": "Starting from {currency}{fixedPrice} or Price: Negotiable",
+            "zh": "起价 {currency}{fixedPrice} 或 价格可议"
+          },
+          "label": {"en": "Best Price Available", "zh": "最优价格"},
+          "ctaText": {"en": "Make an Offer", "zh": "询价"},
+          "ctaAction": "negotiate"
+        },
+        "CONTACT_FOR_PRICE": {
+          "display": {"en": "Contact for Best Price", "zh": "联系获取最优价格"},
+          "label": {"en": "Competitive Pricing", "zh": "竞争性价格"},
+          "ctaText": {"en": "Get Price Quote", "zh": "获取报价"},
+          "ctaAction": "contact"
+        },
+        "QUOTE_REQUIRED": {
+          "display": {"en": "Quote Required", "zh": "需要报价"},
+          "label": {"en": "Custom Pricing", "zh": "定制价格"},
+          "ctaText": {"en": "Request Quote", "zh": "申请报价"},
+          "ctaAction": "quote"
+        }
+      }
+    },
+    "homepage": {
+      "path": "/index.vue",
+      "bilingual": true,
+      "sections": [
+        {
+          "name": "Header",
+          "bilingual": true
+        },
+        {
+          "name": "Hero Section",
+          "content": {
+            "title": {
+              "en": "autopartco-china.com",
+              "zh": "山东百基安国际贸易有限公司"
+            },
+            "subtitle": {
+              "en": "Premium Auto Parts from China - Sinotruk & Weichai Specialists",
+              "zh": "中国优质汽车配件 - 重汽潍柴专家"
+            },
+            "tagline": {
+              "en": "Providing Industry Solutions for You!",
+              "zh": "为您提供行业解决方案！"
+            },
+            "searchBar": true,
+            "autocomplete": true,
+            "placeholder": {
+              "en": "Search for auto parts...",
+              "zh": "搜索汽车配件..."
+            }
+          }
+        },
+        {
+          "name": "Featured Categories",
+          "display": "Grid with icons",
+          "bilingual": true,
+          "examples": [
+            {"en": "Engine Parts", "zh": "发动机配件"},
+            {"en": "Brake Systems", "zh": "制动系统"},
+            {"en": "Filters", "zh": "滤清器"},
+            {"en": "Natural Gas Engines", "zh": "天然气发动机"},
+            {"en": "Mining Vehicle Parts", "zh": "矿山车配件"},
+            {"en": "Special Vehicle Parts", "zh": "特种车配件"}
+          ]
+        },
+        {
+          "name": "Latest Products",
+          "component": "ProductGrid",
+          "title": {"en": "Latest Products", "zh": "最新产品"},
+          "columns": 4,
+          "rows": 2,
+          "cta": {"en": "View All Products", "zh": "查看所有产品"}
+        },
+        {
+          "name": "Popular Brands",
+          "display": "Logo grid",
+          "title": {"en": "Popular Brands", "zh": "热门品牌"},
+          "examples": ["Sinotruk (中国重汽)", "Weichai (潍柴)", "Mercedes", "BMW", "Toyota"]
+        },
+        {
+          "name": "Why Choose Us",
+          "title": {
+            "en": "Why Choose Baijian International",
+            "zh": "为什么选择百基安"
+          },
+          "features": [
+            {
+              "title": {"en": "Genuine Parts", "zh": "正品配件"},
+              "description": {"en": "All parts are genuine OEM or high-quality equivalents", "zh": "所有配件均为正品OEM或高质量等效产品"}
+            },
+            {
+              "title": {"en": "Expert Service", "zh": "专业服务"},
+              "description": {"en": "Professional team with years of industry experience", "zh": "拥有多年行业经验的专业团队"}
+            },
+            {
+              "title": {"en": "Best Prices", "zh": "最优价格"},
+              "description": {"en": "Competitive pricing with quality assurance", "zh": "质量保证下的竞争性价格"}
+            },
+            {
+              "title": {"en": "Nationwide Network", "zh": "全国网络"},
+              "description": {"en": "Sales network covering all of China", "zh": "销售网络遍及全国"}
+            }
+          ]
+        },
+        {
+          "name": "Company Info Section",
+          "content": {
+            "title": {
+              "en": "About Shandong Baijian International Trade Co., Ltd",
+              "zh": "关于山东百基安国际贸易有限公司"
+            },
+            "description": {
+              "en": "Established in October 2008, we specialize in Sinotruk and Weichai engine parts with a nationwide sales network. We adhere to principles of honesty, quality assurance, and customer-first service.",
+              "zh": "成立于2008年10月，专业销售重汽、潍柴发动机配件，销售网络遍及全国。秉承诚实守信、质量保证、客户至上的原则。"
+            }
+          }
+        },
+        {
+          "name": "Footer"
+        }
+      ]
+    },
+    "categoryListing": {
+      "path": "/category/[slug].vue",
+      "bilingual": true,
+      "layout": {
+        "breadcrumb": {
+          "en": "Home > Categories > {categoryName}",
+          "zh": "首页 > 分类 > {categoryName}"
+        },
+        "header": {
+          "title": "{categoryName in current language}",
+          "description": "{description in current language}"
+        },
+        "grid": "sidebar + main content",
+        "sidebar": {
+          "component": "FilterSidebar",
+          "title": {"en": "Filters", "zh": "筛选"},
+          "filters": [
+            {
+              "type": "checkbox",
+              "name": {"en": "Brands", "zh": "品牌"},
+              "options": ["Sinotruk", "Weichai", "Mercedes", "BMW", "Toyota"]
+            },
+            {
+              "type": "checkbox",
+              "name": {"en": "Condition", "zh": "状态"},
+              "options": [
+                {"en": "New", "zh": "全新"},
+                {"en": "Used", "zh": "二手"},
+                {"en": "Refurbished", "zh": "翻新"}
+              ]
+            },
+            {
+              "type": "checkbox",
+              "name": {"en": "Quality", "zh": "质量"},
+              "options": [
+                {"en": "Genuine OEM", "zh": "原厂正品"},
+                {"en": "OEM Equivalent", "zh": "OEM等效"},
+                {"en": "Aftermarket", "zh": "售后市场"}
+              ]
+            },
+            {
+              "type": "range",
+              "name": {"en": "Price Range", "zh": "价格范围"},
+              "min": 0,
+              "max": 10000
+            }
+          ],
+          "buttons": {
+            "apply": {"en": "Apply Filters", "zh": "应用筛选"},
+            "reset": {"en": "Reset", "zh": "重置"}
+          }
+        },
+        "mainContent": {
+          "sorting": {
+            "label": {"en": "Sort by", "zh": "排序"},
+            "options": [
+              {"en": "Latest", "zh": "最新"},
+              {"en": "Price: Low to High", "zh": "价格：从低到高"},
+              {"en": "Price: High to Low", "zh": "价格：从高到低"},
+              {"en": "Name A-Z", "zh": "名称 A-Z"}
+            ]
+          },
+          "productGrid": {
+            "columns": 3,
+            "responsive": true
+          },
+          "pagination": true
+        }
+      }
+    },
+    "searchResults": {
+      "path": "/search.vue",
+      "bilingual": true,
+      "features": [
+        {
+          "name": "Search query display",
+          "en": "Results for '{query}'",
+          "zh": "'{query}' 的搜索结果"
+        },
+        {
+          "name": "No results state",
+          "en": "No products found. Try different keywords or filters.",
+          "zh": "未找到产品。尝试不同的关键词或筛选条件。"
+        },
+        "Search refinement filters",
+        "Same layout as category listing"
+      ]
+    },
+    "aboutPage": {
+      "path": "/about.vue",
+      "bilingual": true,
+      "sections": [
+        {
+          "name": "Company Header",
+          "title": {
+            "en": "About Shandong Baijian International Trade Co., Ltd",
+            "zh": "关于山东百基安国际贸易有限公司"
+          }
+        },
+        {
+          "name": "Company Description",
+          "content": {
+            "en": "Shandong Baijian International Trade Co., Ltd was established in October 2008. We mainly deal with all vehicle parts for Sinotruk and Weichai vehicles, and have now developed into a professional sales company for Sinotruk and Weichai engine parts. The company's sales network currently covers the whole country. We adhere to the principles of honesty, genuine products at fair prices, quality assurance, customer first, and reputation first to serve the auto parts industry, strictly controlling product quality and providing excellent pre-sales, sales, and after-sales services. Our products cover natural gas engines, mining vehicles, special vehicles, modified vehicles, etc. In terms of enterprise management, the company adheres to the corporate goal of 'gathering first-class talents to provide first-class services; implementing first-class management to create a first-class enterprise'.",
+            "zh": "山东百基安国际贸易有限公司于2008年10月份成立，主要经营重汽、潍柴各款汽车所有装车配件,现发展为重汽潍柴发动机配件专业的销售公司。公司目前销售网络普及全国,公司秉承诚实守信、货真价实、保质保量、顾客至上、信誉第一的原则为广大汽配界的人士满足服务,严格地为客户把好产品质量关和提供优秀的售前、售中、售后服务。产品涉及天然气发动机、矿山车、特种车、改装车等。在企业管理方面,公司秉承着"聚集一流人才提供一流服务;实行一流管理创立一流企业"的企业目标。"
+          }
+        },
+        {
+          "name": "Our Values",
+          "title": {"en": "Our Core Values", "zh": "我们的核心价值"},
+          "values": [
+            {"en": "Honesty and Integrity", "zh": "诚实守信"},
+            {"en": "Genuine Products at Fair Prices", "zh": "货真价实"},
+            {"en": "Quality Assurance", "zh": "保质保量"},
+            {"en": "Customer First", "zh": "顾客至上"},
+            {"en": "Reputation First", "zh": "信誉第一"}
+          ]
+        },
+        {
+          "name": "Product Range",
+          "title": {"en": "Our Product Range", "zh": "产品范围"},
+          "products": [
+            {"en": "Natural Gas Engines", "zh": "天然气发动机"},
+            {"en": "Mining Vehicle Parts", "zh": "矿山车配件"},
+            {"en": "Special Vehicle Parts", "zh": "特种车配件"},
+            {"en": "Modified Vehicle Parts", "zh": "改装车配件"}
+          ]
+        }
+      ]
+    },
+    "contactPage": {
+      "path": "/contact.vue",
+      "bilingual": true,
+      "sections": [
+        {
+          "name": "Contact Header",
+          "title": {
+            "en": "Contact Us",
+            "zh": "联系我们"
+          },
+          "subtitle": {
+            "en": "Providing Industry Solutions for You!",
+            "zh": "为您提供行业解决方案！"
+          }
+        },
+        {
+          "name": "Contact Information",
+          "companyName": {
+            "en": "Shandong Baijian International Trade Co., Ltd",
+            "zh": "山东百基安国际贸易有限公司"
+          },
+          "details": [
+            {
+              "icon": "location",
+              "label": {"en": "Address", "zh": "地址"},
+              "value": {
+                "en": "No. 3-104, Quanli Heavy Parts City, Lanxiang Road, Tianqiao District, Jinan City, Shandong Province",
+                "zh": "济南市天桥区蓝翔路泉利重配城3-104号"
+              }
+            },
+            {
+              "icon": "phone",
+              "label": {"en": "Mobile", "zh": "手机"},
+              "value": "18660429678"
+            },
+            {
+              "icon": "phone",
+              "label": {"en": "Tel", "zh": "电话"},
+              "value": "0531-85702200"
+            },
+            {
+              "icon": "email",
+              "label": {"en": "Email", "zh": "邮箱"},
+              "value": "1745668156@qq.com"
+            },
+            {
+              "icon": "wechat",
+              "label": {"en": "WeChat", "zh": "微信"},
+              "value": "Scan QR Code",
+              "qrCode": true
+            }
+          ]
+        },
+        {
+          "name": "Contact Form",
+          "title": {
+            "en": "Send us a Message",
+            "zh": "发送消息"
+          },
+          "fields": [
+            {
+              "name": "name",
+              "type": "text",
+              "label": {"en": "Your Name", "zh": "您的姓名"},
+              "placeholder": {"en": "Enter your name", "zh": "请输入姓名"},
+              "required": true
+            },
+            {
+              "name": "phone",
+              "type": "tel",
+              "label": {"en": "Your Phone", "zh": "您的手机"},
+              "placeholder": {"en": "Enter your phone number", "zh": "请输入手机号"},
+              "required": true
+            },
+            {
+              "name": "email",
+              "type": "email",
+              "label": {"en": "Your Email", "zh": "您的邮箱"},
+              "placeholder": {"en": "Enter your email", "zh": "请输入邮箱"},
+              "required": true
+            },
+            {
+              "name": "message",
+              "type": "textarea",
+              "label": {"en": "Message", "zh": "留言"},
+              "placeholder": {
+                "en": "Please describe your inquiry in detail, and we will arrange for a specialist to contact you promptly",
+                "zh": "请详细描述您所需要咨询的问题，我们将及时安排专员与您联系"
+              },
+              "required": true,
+              "rows": 5
+            }
+          ],
+          "submitButton": {
+            "en": "Submit",
+            "zh": "提交"
+          }
+        },
+        {
+          "name": "Quick Contact Buttons",
+          "buttons": [
+            {
+              "type": "whatsapp",
+              "label": {"en": "Contact via WhatsApp", "zh": "WhatsApp联系"},
+              "action": "open WhatsApp",
+              "phone": "+8618660429678"
+            },
+            {
+              "type": "wechat",
+              "label": {"en": "Scan WeChat QR", "zh": "扫描微信二维码"},
+              "action": "show QR modal"
+            },
+            {
+              "type": "phone",
+              "label": {"en": "Call Now", "zh": "立即致电"},
+              "action": "tel:053185702200"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "ProductCard.vue",
+      "props": ["product"],
+      "bilingual": true,
+      "elements": [
+        {
+          "name": "image-wrapper",
+          "children": [
+            "img (src: product.imageUrls[0] or placeholder)",
+            "condition-badge (bilingual text: product.condition)"
+          ]
+        },
+        {
+          "name": "content",
+          "children": [
+            "title (h3: product.adCategoryFactory in current language)",
+            "subtitle (p: product.carBrand + product.carModel)",
+            "PriceDisplay component (compact mode, bilingual)",
+            "meta (supplier-code, stock status in current language)"
+          ]
+        }
+      ],
+      "link": "/product/{product.slug}"
+    },
+    {
+      "name": "ProductGallery.vue",
+      "features": [
+        "Main image display",
+        "Thumbnail navigation",
+        "Lightbox modal",
+        "Zoom functionality",
+        "Mobile swipe support",
+        "Lazy loading",
+        "Image counter (bilingual)"
+      ]
+    },
+    {
+      "name": "PriceDisplay.vue",
+      "props": ["product", "compact"],
+      "bilingual": true,
+      "features": [
+        "Dynamic price rendering based on priceType",
+        "CTA button with appropriate action (bilingual)",
+        "Price badge styling",
+        "Currency formatting"
+      ]
+    },
+    {
+      "name": "TheHeader.vue",
+      "bilingual": true,
+      "structure": {
+        "logo": "autopartco-china.com / 百基安",
+        "languageSwitcher": {
+          "options": [
+            {"code": "en", "label": "EN", "flag": "🇺🇸"},
+            {"code": "zh", "label": "中文", "flag": "🇨🇳"}
+          ],
+          "position": "top-right"
+        },
+        "navigation": [
+          {"en": "Home", "zh": "首页", "path": "/"},
+          {"en": "Categories", "zh": "分类", "path": "/categories", "dropdown": true},
+          {"en": "Brands", "zh": "品牌", "path": "/brands"},
+          {"en": "About", "zh": "关于我们", "path": "/about"},
+          {"en": "Contact", "zh": "联系我们", "path": "/contact"}
+        ],
+        "search": {
+          "input": true,
+          "autocomplete": true,
+          "suggestions": true,
+          "placeholder": {
+            "en": "Search parts...",
+            "zh": "搜索配件..."
+          }
+        },
+        "mobileMenu": "Hamburger menu (bilingual)"
+      }
+    },
+    {
+      "name": "TheFooter.vue",
+      "bilingual": true,
+      "sections": [
+        {
+          "name": "Company Info",
+          "logo": true,
+          "companyName": {
+            "en": "Shandong Baijian International Trade Co., Ltd",
+            "zh": "山东百基安国际贸易有限公司"
+          },
+          "description": {
+            "en": "Professional Sinotruk & Weichai parts supplier since 2008",
+            "zh": "专业重汽潍柴配件供应商，自2008年起"
+          }
+        },
+        {
+          "name": "Quick Links",
+          "title": {"en": "Quick Links", "zh": "快速链接"},
+          "links": [
+            {"en": "Categories", "zh": "产品分类", "path": "/categories"},
+            {"en": "Brands", "zh": "品牌", "path": "/brands"},
+            {"en": "About Us", "zh": "关于我们", "path": "/about"},
+            {"en": "FAQ", "zh": "常见问题", "path": "/faq"}
+          ]
+        },
+        {
+          "name": "Product Categories",
+          "title": {"en": "Categories", "zh": "产品分类"},
+          "links": [
+            {"en": "Engine Parts", "zh": "发动机配件"},
+            {"en": "Brake Systems", "zh": "制动系统"},
+            {"en": "Filters", "zh": "滤清器"},
+            {"en": "Natural Gas Engines", "zh": "天然气发动机"}
+          ]
+        },
+        {
+          "name": "Contact Information",
+          "title": {"en": "Contact Us", "zh": "联系方式"},
+          "info": [
+            {
+              "icon": "location",
+              "text": {
+                "en": "Jinan City, Shandong Province",
+                "zh": "济南市天桥区蓝翔路泉利重配城3-104号"
+              }
+            },
+            {
+              "icon": "phone",
+              "text": "+86 18660429678"
+            },
+            {
+              "icon": "phone",
+              "text": "0531-85702200"
+            },
+            {
+              "icon": "email",
+              "text": "1745668156@qq.com"
+            },
+            {
+              "icon": "website",
+              "text": "www.sdbja.com"
+            }
+          ]
+        },
+        {
+          "name": "Popular Brands",
+          "title": {"en": "Popular Brands", "zh": "热门品牌"},
+          "display": "Logo grid",
+          "brands": ["Sinotruk", "Weichai", "Mercedes", "BMW", "Toyota"]
+        },
+        {
+          "name": "Social & Contact",
+          "icons": [
+            {"type": "wechat", "label": {"en": "WeChat", "zh": "微信"}, "qrCode": true},
+            {"type": "whatsapp", "label": {"en": "WhatsApp", "zh": "WhatsApp"}},
+            {"type": "email", "label": {"en": "Email", "zh": "邮箱"}}
+          ]
+        },
+        {
+          "name": "Bottom Bar",
+          "copyright": {
+            "en": "© 2024 Shandong Baijian International Trade Co., Ltd. All rights reserved.",
+            "zh": "© 2024 山东百基安国际贸易有限公司 版权所有"
+          },
+          "links": [
+            {"en": "Privacy Policy", "zh": "隐私政策"},
+            {"en": "Terms of Service", "zh": "服务条款"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FilterSidebar.vue",
+      "bilingual": true,
+      "filters": [
+        "Brand checkboxes",
+        "Condition filters",
+        "Quality grade filters",
+        "Price range slider",
+        "Year filter"
+      ],
+      "buttons": {
+        "apply": {"en": "Apply Filters", "zh": "应用筛选"},
+        "reset": {"en": "Reset", "zh": "重置"}
+      }
+    },
+    {
+      "name": "Pagination.vue",
+      "bilingual": true,
+      "features": [
+        "Previous/Next buttons (bilingual)",
+        "Page numbers",
+        "Mobile-friendly",
+        "Total results display"
+      ],
+      "labels": {
+        "previous": {"en": "Previous", "zh": "上一页"},
+        "next": {"en": "Next", "zh": "下一页"},
+        "showing": {"en": "Showing {from} to {to} of {total} results", "zh": "显示 {from} 到 {to}，共 {total} 条结果"}
+      }
+    },
+    {
+      "name": "Breadcrumb.vue",
+      "bilingual": true,
+      "features": [
+        "Dynamic breadcrumb based on route",
+        "Schema.org markup",
+        "Separator customization"
+      ]
+    },
+    {
+      "name": "LanguageSwitcher.vue",
+      "features": [
+        "Toggle between EN and 中文",
+        "Persist language preference in localStorage",
+        "Update all content dynamically",
+        "Flag icons or text labels"
+      ]
+    },
+    {
+      "name": "SearchBar.vue",
+      "bilingual": true,
+      "features": [
+        "Search input with icon",
+        "Autocomplete suggestions (bilingual)",
+        "Recent searches",
+        "Popular searches",
+        "Category filter in dropdown"
+      ]
+    }
+  ],
+  "composables": [
+    {
+      "name": "useProductApi.js",
+      "functions": [
+        {
+          "name": "fetchProduct",
+          "params": ["slug"],
+          "returns": "Promise<Product>",
+          "endpoint": "/api/v1/products/{slug}",
+          "errorHandling": "404 if not found"
+        },
+        {
+          "name": "fetchProducts",
+          "params": ["params"],
+          "returns": "Promise<PaginatedProducts>",
+          "endpoint": "GET /api/v1/products"
+        },
+        {
+          "name": "searchProducts",
+          "params": ["searchParams"],
+          "returns": "Promise<PaginatedProducts>",
+          "endpoint": "POST /api/v1/products/search",
+          "method": "POST",
+          "body": "searchParams object with filters"
+        },
+        {
+          "name": "fetchCategories",
+          "returns": "Promise<Category[]>",
+          "endpoint": "/api/v1/categories"
+        },
+        {
+          "name": "fetchBrands",
+          "returns": "Promise<Brand[]>",
+          "endpoint": "/api/v1/brands"
+        }
+      ]
+    },
+    {
+      "name": "useContactActions.js",
+      "functions": [
+        {
+          "name": "openWhatsApp",
+          "params": ["product"],
+          "action": "Opens WhatsApp with pre-filled message (bilingual)",
+          "phone": "+8618660429678"
+        },
+        {
+          "name": "openEmail",
+          "params": ["product"],
+          "action": "Opens email client with pre-filled subject and body (bilingual)",
+          "email": "1745668156@qq.com"
+        },
+        {
+          "name": "callPhone",
+          "action": "Opens phone dialer",
+          "numbers": ["053185702200", "18660429678"]
+        },
+        {
+          "name": "shareProduct",
+          "params": ["product"],
+          "action": "Uses Web Share API or fallback (bilingual)"
+        },
+        {
+          "name": "showWeChatQR",
+          "action": "Opens modal with WeChat QR code"
+        }
+      ]
+    },
+    {
+      "name": "useI18n.js",
+      "description": "Custom composable for i18n (if not using @nuxtjs/i18n)",
+      "functions": [
+        {
+          "name": "t",
+          "params": ["key"],
+          "returns": "Translated string based on current locale"
+        },
+        {
+          "name": "setLocale",
+          "params": ["locale"],
+          "action": "Changes current language (en/zh)"
+        },
+        {
+          "name": "getCurrentLocale",
+          "returns": "Current locale code"
+        }
+      ]
+    }
+  ],
+  "designSystem": {
+    "colorScheme": {
+      "primary": "#d32f2f (Red - matching company logo)",
+      "secondary": "#64748b (Slate gray)",
+      "accent": "#f59e0b (Amber - for CTAs)",
+      "success": "#10b981 (Green - for in stock)",
+      "warning": "#f59e0b (Orange - for negotiable)",
+      "danger": "#ef4444 (Red - for out of stock)",
+      "background": "#ffffff",
+      "surface": "#f8fafc",
+      "border": "#e2e8f0",
+      "textPrimary": "#1e293b",
+      "textSecondary": "#64748b"
+    },
+    "typography": {
+      "fontFamily": {
+        "en": "Inter, Roboto, sans-serif",
+        "zh": "Noto Sans SC, PingFang SC, Microsoft YaHei, sans-serif"
+      },
+      "headings": "Font weight 600-700",
+      "body": "Font weight 400",
+      "smallText": "Font weight 400, size 0.875rem"
+    },
+    "breakpoints": {
+      "mobile": "< 640px",
+      "tablet": "640px - 1024px",
+      "desktop": "> 1024px"
+    },
+    "badges": {
+      "condition": {
+        "NEW": {"bg": "green", "en": "New", "zh": "全新"},
+        "USED": {"bg": "blue", "en": "Used", "zh": "二手"},
+        "REFURBISHED": {"bg": "yellow", "en": "Refurbished", "zh": "翻新"},
+        "RECONDITIONED": {"bg": "orange", "en": "Reconditioned", "zh": "翻新"}
+      },
+      "quality": {
+        "GENUINE_OEM": {"border": "gold", "en": "Genuine OEM", "zh": "原厂正品"},
+        "OEM_EQUIVALENT": {"border": "silver", "en": "OEM Equivalent", "zh": "OEM等效"},
+        "AFTERMARKET_PREMIUM": {"border": "bronze", "en": "Premium Aftermarket", "zh": "优质售后"},
+        "AFTERMARKET_STANDARD": {"border": "gray", "en": "Standard Aftermarket", "zh": "标准售后"}
+      }
+    }
+  },
+  "technicalRequirements": {
+    "language": "Use JavaScript (.js) files instead of TypeScript (.ts)",
+    "i18n": {
+      "implementation": "Use @nuxtjs/i18n module",
+      "locales": ["en", "zh"],
+      "defaultLocale": "en",
+      "strategy": "prefix_except_default or prefix",
+      "detectBrowserLanguage": true,
+      "langDir": "locales/",
+      "files": [
+        {"code": "en", "file": "en.json"},
+        {"code": "zh", "file": "zh.json"}
+      ]
+    },
+    "seo": [
+      "Server-side rendering (SSR) enabled",
+      "Dynamic meta tags per page (bilingual)",
+      "OpenGraph tags for social sharing (bilingual)",
+      "JSON-LD structured data",
+      "Sitemap.xml generation (both languages)",
+      "Canonical URLs",
+      "hreflang tags for language versions",
+      "Alt text for all images (bilingual)",
+      "Semantic HTML5",
+      "Page load speed optimization"
+    ],
+    "performance": [
+      "Image lazy loading",
+      "Code splitting",
+      "Dynamic imports for modals/heavy components",
+      "Caching strategies",
+      "Optimized bundle size",
+      "Web Vitals optimization (LCP, FID, CLS)"
+    ],
+    "accessibility": [
+      "Semantic HTML",
+      "ARIA labels where needed (bilingual)",
+      "Keyboard navigation",
+      "Focus indicators",
+      "Alt text for images (bilingual)",
+      "Color contrast compliance (WCAG AA)",
+      "Screen reader friendly (both languages)",
+      "Language switcher accessible"
+    ],
+    "errorHandling": [
+      "404 page for product not found (bilingual)",
+      "500 page for server errors (bilingual)",
+      "Loading states (skeletons)",
+      "Empty states for no results (bilingual)",
+      "Network error handling (bilingual messages)",
+      "Retry mechanisms"
+    ],
+    "mobile": [
+      "Touch-friendly buttons (min 44px)",
+      "Swipeable image gallery",
+      "Mobile-optimized navigation (hamburger menu, bilingual)",
+      "Bottom sheet for filters on mobile",
+      "Sticky CTA button on product page (mobile)",
+      "Mobile-friendly language switcher"
+    ]
+  },
+  "configuration": {
+    "nuxtConfig": {
+      "modules": [
+        "@nuxtjs/tailwindcss",
+        "@nuxtjs/seo",
+        "@nuxt/image",
+        "@pinia/nuxt",
+        "@vueuse/nuxt",
+        "@nuxtjs/i18n"
+      ],
+      "i18n": {
+        "locales": [
+          {"code": "en", "file": "en.json", "name": "English"},
+          {"code": "zh", "file": "zh.json", "name": "中文"}
+        ],
+        "defaultLocale": "en",
+        "strategy": "prefix_except_default",
+        "detectBrowserLanguage": {
+          "useCookie": true,
+          "cookieKey": "i18n_redirected",
+          "redirectOn": "root"
+        }
+      },
+      "runtimeConfig": {
+        "public": {
+          "apiBaseUrl": "process.env.API_BASE_URL || http://localhost:8080",
+          "siteUrl": "https://autopartco-china.com",
+          "siteName": {
+            "en": "AutoPartCo China",
+            "zh": "山东百基安国际贸易有限公司"
+          },
+          "companyInfo": {
+            "name": {
+              "en": "Shandong Baijian International Trade Co., Ltd",
+              "zh": "山东百基安国际贸易有限公司"
+            },
+            "phone": "18660429678",
+            "landline": "0531-85702200",
+            "email": "1745668156@qq.com",
+            "address": {
+              "en": "No. 3-104, Quanli Heavy Parts City, Lanxiang Road, Tianqiao District, Jinan City, Shandong Province",
+              "zh": "济南市天桥区蓝翔路泉利重配城3-104号"
+            },
+            "website": "www.sdbja.com"
+          }
+        }
+      },
+      "app": {
+        "head": {
+          "charset": "utf-8",
+          "viewport": "width=device-width, initial-scale=1",
+          "htmlAttrs": {
+            "lang": "en"
+          }
+        }
+      },
+      "nitro": {
+        "prerender": {
+          "crawlLinks": true,
+          "routes": ["/", "/zh"]
+        }
+      }
+    },
+    "environmentVariables": {
+      "API_BASE_URL": "http://localhost:8080",
+      "SITE_URL": "https://autopartco-china.com"
+    }
+  },
+  "fileStructure": {
+    "pages": [
+      "index.vue (Homepage)",
+      "product/[slug].vue (Product detail - MAIN PAGE)",
+      "category/index.vue (All categories)",
+      "category/[slug].vue (Category listing)",
+      "brand/index.vue (All brands)",
+      "brand/[slug].vue (Brand listing)",
+      "search.vue (Search results)",
+      "about.vue (About us)",
+      "contact.vue (Contact page)"
+    ],
+    "components": {
+      "product": [
+        "ProductCard.vue",
+        "ProductGallery.vue",
+        "ProductSpecs.vue",
+        "PriceDisplay.vue"
+      ],
+      "common": [
+        "TheHeader.vue",
+        "TheFooter.vue",
+        "Breadcrumb.vue",
+        "Pagination.vue",
+        "SearchBar.vue",
+        "LanguageSwitcher.vue"
+      ],
+      "filters": [
+        "FilterSidebar.vue",
+        "FilterChips.vue"
+      ]
+    },
+    "composables": [
+      "useProductApi.js",
+      "useContactActions.js",
+      "useFilters.js"
+    ],
+    "locales": [
+      "en.json (English translations)",
+      "zh.json (Chinese translations)"
+    ],
+    "layouts": [
+      "default.vue"
+    ],
+    "assets": [
+      "css/main.css"
+    ],
+    "public": [
+      "favicon.ico",
+      "og-default.jpg",
+      "placeholder.jpg",
+      "logo.png (company logo)",
+      "wechat-qr.png (WeChat QR code)"
+    ],
+    "config": [
+      "nuxt.config.js",
+      "tailwind.config.js",
+      "package.json"
+    ]
+  },
+  "translationStructure": {
+    "locales/en.json": {
+      "nav": {
+        "home": "Home",
+        "categories": "Categories",
+        "brands": "Brands",
+        "about": "About",
+        "contact": "Contact"
+      },
+      "common": {
+        "search": "Search",
+        "searchPlaceholder": "Search for auto parts...",
+        "viewAll": "View All",
+        "readMore": "Read More",
+        "contactUs": "Contact Us",
+        "learnMore": "Learn More"
+      },
+      "product": {
+        "category": "Category",
+        "brand": "Brand",
+        "model": "Model",
+        "year": "Year",
+        "condition": "Condition",
+        "quality": "Quality",
+        "origin": "Origin",
+        "supplierCode": "Supplier Code",
+        "location": "Location",
+        "stock": "Stock",
+        "inStock": "In Stock",
+        "outOfStock": "Out of Stock",
+        "relatedProducts": "Related Products",
+        "specifications": "Specifications",
+        "description": "Description"
+      }
+    },
+    "locales/zh.json": {
+      "nav": {
+        "home": "首页",
+        "categories": "分类",
+        "brands": "品牌",
+        "about": "关于我们",
+        "contact": "联系我们"
+      },
+      "common": {
+        "search": "搜索",
+        "searchPlaceholder": "搜索汽车配件...",
+        "viewAll": "查看全部",
+        "readMore": "了解更多",
+        "contactUs": "联系我们",
+        "learnMore": "了解详情"
+      },
+      "product": {
+        "category": "类别",
+        "brand": "品牌",
+        "model": "型号",
+        "year": "年份",
+        "condition": "状态",
+        "quality": "质量",
+        "origin": "产地",
+        "supplierCode": "供应商代码",
+        "location": "地址",
+        "stock": "库存",
+        "inStock": "有货",
+        "outOfStock": "缺货",
+        "relatedProducts": "相关产品",
+        "specifications": "规格参数",
+        "description": "产品描述"
+      }
+    }
+  },
+  "mockData": {
+    "description": "Create bilingual mock product data for development testing",
+    "examples": [
+      {
+        "id": 1,
+        "slug": "front-brake-pads-sinotruk-howo-bp-12345",
+        "adCategoryFactory": "Front Brake Pads",
+        "address": "Warehouse A, Shanghai",
+        "manufacturerCountry": "China",
+        "condition": "NEW",
+        "qualityGrade": "OEM_EQUIVALENT",
+        "carBrand": "Sinotruk",
+        "carModel": "HOWO A7",
+        "partYear": 2024,
+        "supplierCode": "BP-12345",
+        "priceType": "FIXED",
+        "fixedPrice": 89.99,
+        "currency": "USD",
+        "imageUrls": [
+          "https://via.placeholder.com/800x600/d32f2f/ffffff?text=Brake+Pads"
+        ],
+        "description": {
+          "en": "Premium quality front brake pads for Sinotruk HOWO A7. OEM equivalent quality with excellent stopping power and low dust formula. Suitable for heavy-duty applications.",
+          "zh": "适用于中国重汽HOWO A7的优质前刹车片。OEM等效质量，具有出色的制动力和低粉尘配方。适合重载应用。"
+        },
+        "stockQuantity": 45,
+        "isActive": true,
+        "createdAt": "2024-01-15T10:00:00Z",
+        "updatedAt": "2024-01-15T10:00:00Z"
+      },
+      {
+        "id": 2,
+        "slug": "engine-oil-filter-weichai-wp10-of-98765",
+        "adCategoryFactory": "Engine Oil Filter",
+        "address": "Warehouse B, Guangzhou",
+        "manufacturerCountry": "China",
+        "condition": "NEW",
+        "qualityGrade": "GENUINE_OEM",
+        "carBrand": "Weichai",
+        "carModel": "WP10",
+        "partYear": 2023,
+        "supplierCode": "OF-98765",
+        "priceType": "NEGOTIABLE",
+        "fixedPrice": 25.50,
+        "currency": "USD",
+        "imageUrls": [
+          "https://via.placeholder.com/800x600/10b981/ffffff?text=Oil+Filter"
+        ],
+        "description": {
+          "en": "Genuine Weichai oil filter for WP10 engines. High-efficiency filtration media ensures maximum engine protection and extended service life.",
+          "zh": "潍柴WP10发动机原装机油滤清器。高效过滤介质确保最大程度的发动机保护和延长使用寿命。"
+        },
+        "stockQuantity": 120,
+        "isActive": true,
+        "createdAt": "2024-01-20T14:30:00Z",
+        "updatedAt": "2024-01-20T14:30:00Z"
+      },
+      {
+        "id": 3,
+        "slug": "natural-gas-engine-parts-sinotruk-lng-ep-45678",
+        "adCategoryFactory": "Natural Gas Engine Parts Set",
+        "address": "Warehouse C, Jinan",
+        "manufacturerCountry": "China",
+        "condition": "NEW",
+        "qualityGrade": "GENUINE_OEM",
+        "carBrand": "Sinotruk",
+        "carModel": "LNG Engine",
+        "partYear": 2024,
+        "supplierCode": "EP-45678",
+        "priceType": "CONTACT_FOR_PRICE",
+        "imageUrls": [],
+        "description": {
+          "en": "Complete natural gas engine parts set for Sinotruk LNG vehicles. Includes all essential components for engine maintenance and repair. Genuine OEM parts with warranty.",
+          "zh": "适用于中国重汽LNG车辆的完整天然气发动机配件套装。包括发动机维护和维修的所有必需组件。原厂正品配件，提供质保。"
+        },
+        "stockQuantity": 15,
+        "isActive": true,
+        "createdAt": "2024-01-25T09:15:00Z",
+        "updatedAt": "2024-01-25T09:15:00Z"
+      }
+    ]
+  },
+  "deliverables": [
+    "Fully functional Nuxt 4 application with bilingual support (EN/ZH)",
+    "All pages implemented with language switching",
+    "All components built and responsive",
+    "SEO optimized with meta tags and structured data (bilingual)",
+    "Clean, production-ready JavaScript code (no TypeScript)",
+    "Proper error handling and loading states (bilingual messages)",
+    "Accessible markup (WCAG AA compliant, bilingual)",
+    "README with setup instructions",
+    "Component documentation",
+    "API integration guide",
+    "Translation files (en.json, zh.json)",
+    "Deployment guide",
+    "Company logo, WeChat QR code, placeholder images"
+  ],
+  "designPrinciples": [
+    "Bilingual support (English/Chinese) throughout the entire site",
+    "Keep it simple - Clean, professional, not overdesigned",
+    "Mobile-first - Optimize for mobile experience",
+    "Fast loading - Lazy load images, optimize bundle",
+    "SEO-focused - Every page optimized for search engines in both languages",
+    "User-friendly - Intuitive navigation, clear CTAs (bilingual)",
+    "Professional - Business-oriented design matching company branding",
+    "Cultural sensitivity - Appropriate design for both Western and Chinese markets"
+  ],
+  "priorityOrder": [
+    "1. Language switching functionality and i18n setup",
+    "2. Product detail page (/product/[slug].vue) with bilingual content - MOST IMPORTANT",
+    "3. Product card component with bilingual support",
+    "4. Homepage with bilingual company information",
+    "5. Header and Footer with language switcher",
+    "6. Contact page with company details",
+    "7. About page with company history",
+    "8. Category listing page",
+    "9. Search functionality (POST endpoint)",
+    "10. Filters and sorting"
+  ],
+  "importantNotes": [
+    "ALL files must use .js extension, NOT .ts",
+    "Search/filtering endpoint uses POST method, not GET",
+    "Company information from screenshots must be integrated exactly",
+    "Both English and Chinese content must be available on every page",
+    "Language preference should persist across sessions",
+    "Contact form should be functional with bilingual labels",
+    "WeChat QR code should be prominently displayed",
+    "Company logo (红色 BAIJIAN logo) should be used consistently",
+    "Focus on Sinotruk and Weichai as primary brands",
+    "Mobile WhatsApp and phone contact should be easily accessible"
+  ]
+}

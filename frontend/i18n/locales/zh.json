@@ -1,0 +1,144 @@
+{
+  "common": {
+    "company": "山东百基安国际贸易有限公司",
+    "search": "搜索",
+    "searchPlaceholder": "按名称或零件号搜索配件...",
+    "viewDetails": "查看详情",
+    "contactUs": "联系我们",
+    "getQuote": "获取报价",
+    "learnMore": "了解更多",
+    "home": "首页",
+    "products": "产品",
+    "categories": "分类",
+    "brands": "品牌",
+    "about": "关于我们",
+    "contact": "联系",
+    "language": "语言",
+    "english": "English",
+    "chinese": "中文"
+  },
+  "header": {
+    "tagline": "中国重汽和潍柴配件专业供应商"
+  },
+  "footer": {
+    "company": "公司",
+    "aboutUs": "关于我们",
+    "contactUs": "联系我们",
+    "products": "产品",
+    "allProducts": "所有产品",
+    "categories": "分类",
+    "brands": "品牌",
+    "support": "支持",
+    "faq": "常见问题",
+    "shipping": "运输信息",
+    "returns": "退货政策",
+    "contact": "联系方式",
+    "phone": "手机",
+    "landline": "座机",
+    "email": "邮箱",
+    "whatsapp": "WhatsApp",
+    "wechat": "微信",
+    "copyright": "© {year} 山东百基安国际贸易有限公司。版权所有。"
+  },
+  "product": {
+    "partNumber": "零件号",
+    "category": "分类",
+    "brand": "品牌",
+    "condition": "状况",
+    "qualityGrade": "质量等级",
+    "stock": "库存",
+    "inStock": "有货",
+    "outOfStock": "缺货",
+    "limitedStock": "库存有限",
+    "price": "价格",
+    "negotiable": "可议价",
+    "contactForPrice": "询价",
+    "quoteRequired": "需要报价",
+    "description": "描述",
+    "specifications": "规格",
+    "features": "特点",
+    "applications": "应用",
+    "warranty": "保修",
+    "shipping": "运输",
+    "relatedProducts": "相关产品",
+    "condition_new": "全新",
+    "condition_used": "二手",
+    "condition_refurbished": "翻新",
+    "quality_oem": "原厂",
+    "quality_genuine": "正品",
+    "quality_aftermarket": "副厂"
+  },
+  "home": {
+    "hero": {
+      "title": "来自中国的优质汽车配件",
+      "subtitle": "专注中国重汽和潍柴配件，价格优惠，全球可靠配送",
+      "cta": "浏览产品"
+    },
+    "features": {
+      "title": "为什么选择我们",
+      "quality": {
+        "title": "正品配件",
+        "description": "我们只提供来自可信制造商的正品和原厂质量配件"
+      },
+      "pricing": {
+        "title": "价格优惠",
+        "description": "直接来自中国制造商，确保优质配件的最佳价格"
+      },
+      "shipping": {
+        "title": "全球配送",
+        "description": "可靠的全球配送服务，提供跟踪和保险"
+      },
+      "support": {
+        "title": "专业支持",
+        "description": "专业的双语客户服务，帮助您找到合适的配件"
+      }
+    },
+    "about": {
+      "title": "关于我们公司",
+      "description": "山东百基安国际贸易有限公司是一家专业的正品汽车配件供应商，专注于中国重汽（CNHTC）和潍柴配件。我们致力于以有竞争力的价格提供高质量的配件和优质的客户服务。",
+      "experience": "多年汽车配件出口经验",
+      "customers": "全球满意客户",
+      "parts": "现货配件"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "联系我们的团队进行咨询和报价",
+    "form": {
+      "name": "您的姓名",
+      "email": "电子邮箱",
+      "phone": "电话号码",
+      "message": "留言",
+      "subject": "主题",
+      "send": "发送留言",
+      "sending": "发送中...",
+      "success": "留言发送成功！我们会尽快联系您。",
+      "error": "发送失败。请重试或直接联系我们。"
+    },
+    "info": {
+      "title": "联系方式",
+      "address": "地址",
+      "addressValue": "中国山东省",
+      "hours": "营业时间",
+      "hoursValue": "周一至周五：上午9:00 - 下午6:00（中国时间）"
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "AutoPartCo中国 - 中国重汽和潍柴配件供应商",
+      "description": "中国正品中国重汽和潍柴汽车配件专业供应商。优质配件，价格优惠，全球配送。"
+    },
+    "products": {
+      "title": "产品 - AutoPartCo中国",
+      "description": "浏览我们全面的中国重汽和潍柴汽车配件目录。正品原厂配件，全球配送。"
+    },
+    "about": {
+      "title": "关于我们 - AutoPartCo中国",
+      "description": "了解山东百基安国际贸易有限公司 - 您值得信赖的中国汽车配件合作伙伴。"
+    },
+    "contact": {
+      "title": "联系我们 - AutoPartCo中国",
+      "description": "联系我们的团队获取报价和咨询。专业的双语客户服务。"
+    }
+  }
+}

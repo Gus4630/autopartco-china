@@ -1,0 +1,144 @@
+{
+  "common": {
+    "company": "Shandong Baijian International Trade Co., Ltd",
+    "search": "Search",
+    "searchPlaceholder": "Search for parts by name or part number...",
+    "viewDetails": "View Details",
+    "contactUs": "Contact Us",
+    "getQuote": "Get Quote",
+    "learnMore": "Learn More",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "about": "About Us",
+    "contact": "Contact",
+    "language": "Language",
+    "english": "English",
+    "chinese": "中文"
+  },
+  "header": {
+    "tagline": "Professional Supplier of Sinotruk & Weichai Parts"
+  },
+  "footer": {
+    "company": "Company",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "products": "Products",
+    "allProducts": "All Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "support": "Support",
+    "faq": "FAQ",
+    "shipping": "Shipping Info",
+    "returns": "Returns Policy",
+    "contact": "Contact Information",
+    "phone": "Phone",
+    "landline": "Landline",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "wechat": "WeChat",
+    "copyright": "© {year} Shandong Baijian International Trade Co., Ltd. All rights reserved."
+  },
+  "product": {
+    "partNumber": "Part Number",
+    "category": "Category",
+    "brand": "Brand",
+    "condition": "Condition",
+    "qualityGrade": "Quality Grade",
+    "stock": "Stock",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "limitedStock": "Limited Stock",
+    "price": "Price",
+    "negotiable": "Negotiable",
+    "contactForPrice": "Contact for Price",
+    "quoteRequired": "Quote Required",
+    "description": "Description",
+    "specifications": "Specifications",
+    "features": "Features",
+    "applications": "Applications",
+    "warranty": "Warranty",
+    "shipping": "Shipping",
+    "relatedProducts": "Related Products",
+    "condition_new": "New",
+    "condition_used": "Used",
+    "condition_refurbished": "Refurbished",
+    "quality_oem": "OEM",
+    "quality_genuine": "Genuine",
+    "quality_aftermarket": "Aftermarket"
+  },
+  "home": {
+    "hero": {
+      "title": "Quality Auto Parts from China",
+      "subtitle": "Specialized in Sinotruk and Weichai parts with competitive prices and reliable shipping worldwide",
+      "cta": "Browse Products"
+    },
+    "features": {
+      "title": "Why Choose Us",
+      "quality": {
+        "title": "Genuine Parts",
+        "description": "We supply only genuine and OEM quality parts from trusted manufacturers"
+      },
+      "pricing": {
+        "title": "Competitive Prices",
+        "description": "Direct from manufacturers in China, ensuring the best prices for quality parts"
+      },
+      "shipping": {
+        "title": "Global Shipping",
+        "description": "Reliable worldwide shipping with tracking and insurance"
+      },
+      "support": {
+        "title": "Expert Support",
+        "description": "Professional bilingual customer service to help you find the right parts"
+      }
+    },
+    "about": {
+      "title": "About Our Company",
+      "description": "Shandong Baijian International Trade Co., Ltd is a professional supplier of genuine auto parts, specializing in Sinotruk (CNHTC) and Weichai parts. We are committed to providing high-quality parts at competitive prices with excellent customer service.",
+      "experience": "Years of Experience in Auto Parts Export",
+      "customers": "Satisfied Customers Worldwide",
+      "parts": "Parts in Stock"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team for inquiries and quotes",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Message",
+      "subject": "Subject",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We will contact you soon.",
+      "error": "Failed to send message. Please try again or contact us directly."
+    },
+    "info": {
+      "title": "Contact Information",
+      "address": "Address",
+      "addressValue": "Shandong Province, China",
+      "hours": "Business Hours",
+      "hoursValue": "Monday - Friday: 9:00 AM - 6:00 PM (China Time)"
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "AutoPartCo China - Sinotruk & Weichai Parts Supplier",
+      "description": "Professional supplier of genuine Sinotruk and Weichai auto parts from China. Quality parts, competitive prices, global shipping."
+    },
+    "products": {
+      "title": "Products - AutoPartCo China",
+      "description": "Browse our comprehensive catalog of Sinotruk and Weichai auto parts. Genuine OEM parts with worldwide shipping."
+    },
+    "about": {
+      "title": "About Us - AutoPartCo China",
+      "description": "Learn about Shandong Baijian International Trade Co., Ltd - your trusted partner for Chinese auto parts."
+    },
+    "contact": {
+      "title": "Contact Us - AutoPartCo China",
+      "description": "Get in touch with our team for quotes and inquiries. Professional bilingual customer service."
+    }
+  }
+}
