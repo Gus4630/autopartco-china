@@ -86,7 +86,7 @@ public class FileImportService implements CommandLineRunner {
             return false;
         }
 
-        if (!autoPartRepository.existsById(autoPartId)) {
+        if (!autoPartRepository.existsByIdIgnoringActiveStatus(autoPartId)) {
             log.warn("AutoPart not found for ID {} (file: {})", autoPartId, file.getName());
             return false;
         }

@@ -22,6 +22,9 @@ public interface AutoPartRepository extends JpaRepository<AutoPartEntity, Long>,
     @Query(value = "UPDATE auto_parts SET is_active = true WHERE id = :autoPartId", nativeQuery = true)
     void activateAutoPart(@Param("autoPartId") Long autoPartId);
 
+    @Query(value = "SELECT COUNT(*) > 0 FROM auto_parts WHERE id = :autoPartId", nativeQuery = true)
+    boolean existsByIdIgnoringActiveStatus(@Param("autoPartId") Long autoPartId);
+
     @Query("SELECT ap FROM AutoPartEntity ap WHERE "
             + "(:categoryEn IS NULL OR ap.categoryEn = :categoryEn) AND "
             + "(:search IS NULL OR LOWER(CAST(ap.nameEn AS string)) LIKE LOWER(CONCAT('%', :search, '%')) OR "
