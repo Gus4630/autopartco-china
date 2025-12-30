@@ -1,0 +1,51 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: autopartco-backend
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    open-in-view: false
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/autoparto_db}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  liquibase:
+    enabled: true
+    changelog: classpath:db/changelog-master.yaml
+
+logging:
+  level:
+    ROOT: info
+    anihc.autopartcobackend: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+    liquibase: DEBUG
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:4200,http://localhost:3001,https://network-investment.com}
+
+gemini:
+  api:
+    key: ${GEMINI_API_KEY:AIzaSyCdMLQQngsVUmrmTeVF9-A2SZ7lUOJ7G_E}

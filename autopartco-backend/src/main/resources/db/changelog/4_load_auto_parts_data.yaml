@@ -1,0 +1,144 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4_load_auto_parts_data
+      author: Huseyin Salimov
+      changes:
+        # Load data from CSV
+        - loadData:
+            file: files/cleared_data.csv
+            tableName: auto_parts
+            separator: ;
+            quotchar: '"'
+            relativeToChangelogFile: false
+            columns:
+              - column:
+                  name: id
+                  type: NUMERIC
+              - column:
+                  name: description_zh
+                  type: STRING
+              - column:
+                  name: description_en
+                  type: STRING
+              - column:
+                  name: part_number
+                  type: STRING
+              - column:
+                  name: name_en
+                  type: STRING
+              - column:
+                  name: name_zh
+                  type: STRING
+              - column:
+                  name: category_en
+                  type: STRING
+              - column:
+                  name: category_zh
+                  type: STRING
+              - column:
+                  name: factory_address_en
+                  type: STRING
+              - column:
+                  name: factory_address_zh
+                  type: STRING
+              - column:
+                  name: manufacturing_country_en
+                  type: STRING
+              - column:
+                  name: manufacturing_country_zh
+                  type: STRING
+              - column:
+                  name: condition_en
+                  type: STRING
+              - column:
+                  name: quality
+                  type: STRING
+              - column:
+                  name: car_brand_en
+                  type: STRING
+              - column:
+                  name: car_brand_zh
+                  type: STRING
+              - column:
+                  name: car_model_en
+                  type: STRING
+              - column:
+                  name: car_model_zh
+                  type: STRING
+              - column:
+                  name: part_year
+                  type: SKIP
+
+        # Delete rows with language-specific data (non-Chinese parts)
+        - sql:
+            sql: >
+              DELETE FROM auto_parts
+              WHERE
+                part_number ILIKE '%türkiyə%' OR
+                part_number ILIKE '%turkey%' OR
+                part_number ILIKE '%xidmət%' OR
+                name_en ILIKE '%türkiyə%' OR
+                name_en ILIKE '%turkey%' OR
+                name_en ILIKE '%xidmət%' OR
+                name_zh ILIKE '%türkiyə%' OR
+                name_zh ILIKE '%turkey%' OR
+                name_zh ILIKE '%xidmət%' OR
+                description_en ILIKE '%türkiyə%' OR
+                description_en ILIKE '%turkey%' OR
+                description_en ILIKE '%xidmət%' OR
+                description_zh ILIKE '%türkiyə%' OR
+                description_zh ILIKE '%turkey%' OR
+                description_zh ILIKE '%xidmət%' OR
+                category_en ILIKE '%türkiyə%' OR
+                category_en ILIKE '%turkey%' OR
+                category_en ILIKE '%xidmət%' OR
+                category_zh ILIKE '%türkiyə%' OR
+                category_zh ILIKE '%turkey%' OR
+                category_zh ILIKE '%xidmət%' OR
+                category_zh = '土耳其语' OR
+                quality ILIKE '%türkiyə%' OR
+                quality ILIKE '%turkey%' OR
+                quality ILIKE '%xidmət%' OR
+                description_en = '.' OR
+                name_en = '.' OR
+                category_en = '#VALUE!';
+
+        # Set default is_active to true for all imported records
+        - sql:
+            sql: >
+              UPDATE auto_parts
+              SET is_active = false
+              WHERE is_active IS NULL;
+
+        # Trim part_number to remove leading/trailing spaces
+        - sql:
+            sql: >
+              UPDATE auto_parts
+              SET part_number = TRIM(part_number)
+              WHERE part_number IS NOT NULL;
+
+        # Generate slug for all records
+        # Format: part_number-name_en-id (lowercase, replace spaces/special chars with hyphens)
+        - sql:
+            sql: >
+              UPDATE auto_parts
+              SET slug = LOWER(
+                REGEXP_REPLACE(
+                  CONCAT(
+                    COALESCE(part_number, ''),
+                    '-',
+                    COALESCE(name_en, ''),
+                    '-',
+                    id
+                  ),
+                  '[^a-z0-9]+',
+                  '-',
+                  'g'
+                )
+              )
+              WHERE slug IS NULL;
+
+        # Update the sequence to continue from the max id
+        - sql:
+            sql: >
+              SELECT setval('auto_parts_id_seq', (SELECT MAX(id) FROM auto_parts));

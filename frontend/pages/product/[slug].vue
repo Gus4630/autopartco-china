@@ -16,7 +16,7 @@
             </NuxtLink>
           </li>
           <li class="text-gray-400">/</li>
-          <li class="text-gray-600">{{ product?.name?.[locale] || product?.partNumber }}</li>
+          <li class="text-gray-600">{{ (locale === 'zh' ? product?.nameZh : product?.nameEn) || product?.partNumber }}</li>
         </ol>
       </nav>
 
@@ -26,10 +26,10 @@
           <!-- Product Images -->
           <div>
             <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-4">
-              <NuxtImg
-                v-if="product.images && product.images.length > 0"
-                :src="product.images[selectedImageIndex]"
-                :alt="product.name[locale]"
+              <img
+                v-if="product.files && product.files.length > 0"
+                :src="getImageUrl(product.files[selectedImageIndex].url)"
+                :alt="locale === 'zh' ? product.nameZh : product.nameEn"
                 class="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -39,19 +39,19 @@
             </div>
 
             <!-- Image Thumbnails -->
-            <div v-if="product.images && product.images.length > 1" class="grid grid-cols-4 gap-2">
+            <div v-if="product.files && product.files.length > 1" class="grid grid-cols-4 gap-2">
               <button
-                v-for="(image, index) in product.images"
-                :key="index"
+                v-for="(file, index) in product.files"
+                :key="file.id"
                 @click="selectedImageIndex = index"
                 :class="[
                   'aspect-square rounded-md overflow-hidden border-2',
                   selectedImageIndex === index ? 'border-primary-600' : 'border-gray-200'
                 ]"
               >
-                <NuxtImg
-                  :src="image"
-                  :alt="`${product.name[locale]} - Image ${index + 1}`"
+                <img
+                  :src="getImageUrl(file.url)"
+                  :alt="`${locale === 'zh' ? product.nameZh : product.nameEn} - Image ${index + 1}`"
                   class="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -63,15 +63,15 @@
           <div>
             <!-- Product Name -->
             <h1 class="text-3xl font-bold text-gray-900 mb-4">
-              {{ product.name[locale] }}
+              {{ locale === 'zh' ? product.nameZh : product.nameEn }}
             </h1>
 
             <!-- Condition & Quality Badges -->
             <div class="flex flex-wrap gap-2 mb-6">
-              <span :class="`badge-${product.condition.toLowerCase()}`">
-                {{ t(`product.condition_${product.condition.toLowerCase()}`) }}
+              <span v-if="product.conditionEn" :class="`badge-${product.conditionEn.toLowerCase()}`">
+                {{ locale === 'zh' && product.conditionZh ? product.conditionZh : product.conditionEn }}
               </span>
-              <span :class="`badge-${product.quality.toLowerCase()}`">
+              <span v-if="product.quality" :class="`badge-${product.quality.toLowerCase()}`">
                 {{ t(`product.quality_${product.quality.toLowerCase()}`) }}
               </span>
             </div>
@@ -87,19 +87,19 @@
               <!-- Car Brand -->
               <div class="border-b border-gray-200 pb-3">
                 <span class="text-sm text-gray-600 block mb-1">{{ locale === 'zh' ? '汽车品牌' : 'Car Brand' }}:</span>
-                <p class="font-semibold text-gray-900">{{ product.carBrand[locale] }}</p>
+                <p class="font-semibold text-gray-900">{{ locale === 'zh' ? product.carBrandZh : product.carBrandEn }}</p>
               </div>
 
               <!-- Car Model -->
               <div class="border-b border-gray-200 pb-3">
                 <span class="text-sm text-gray-600 block mb-1">{{ locale === 'zh' ? '汽车型号' : 'Car Model' }}:</span>
-                <p class="font-semibold text-gray-900">{{ product.carModel[locale] }}</p>
+                <p class="font-semibold text-gray-900">{{ locale === 'zh' ? product.carModelZh : product.carModelEn }}</p>
               </div>
 
               <!-- Category -->
               <div class="border-b border-gray-200 pb-3">
                 <span class="text-sm text-gray-600 block mb-1">{{ t('product.category') }}:</span>
-                <p class="font-semibold text-gray-900">{{ product.category.name[locale] }}</p>
+                <p class="font-semibold text-gray-900">{{ locale === 'zh' ? product.categoryZh : product.categoryEn }}</p>
               </div>
 
               <!-- Part Year -->
@@ -111,13 +111,13 @@
               <!-- Manufacturing Country -->
               <div class="border-b border-gray-200 pb-3">
                 <span class="text-sm text-gray-600 block mb-1">{{ locale === 'zh' ? '制造国家' : 'Manufacturing Country' }}:</span>
-                <p class="font-semibold text-gray-900">{{ product.manufacturingCountry[locale] }}</p>
+                <p class="font-semibold text-gray-900">{{ locale === 'zh' ? product.manufacturingCountryZh : product.manufacturingCountryEn }}</p>
               </div>
 
               <!-- Factory Address -->
               <div class="border-b border-gray-200 pb-3">
                 <span class="text-sm text-gray-600 block mb-1">{{ locale === 'zh' ? '工厂地址' : 'Factory Address' }}:</span>
-                <p class="text-gray-900">{{ product.factoryAddress[locale] }}</p>
+                <p class="text-gray-900">{{ locale === 'zh' ? product.factoryAddressZh : product.factoryAddressEn }}</p>
               </div>
             </div>
 
@@ -127,7 +127,7 @@
                 {{ t('product.description') }}
               </h2>
               <p class="text-gray-700 leading-relaxed">
-                {{ product.description[locale] }}
+                {{ locale === 'zh' ? product.descriptionZh : product.descriptionEn }}
               </p>
             </div>
 
@@ -162,22 +162,22 @@
             class="card hover:shadow-lg transition-shadow"
           >
             <div class="aspect-square bg-gray-100">
-              <NuxtImg
-                v-if="relatedProduct.images && relatedProduct.images.length > 0"
-                :src="relatedProduct.images[0]"
-                :alt="relatedProduct.name[locale]"
+              <img
+                v-if="relatedProduct.files && relatedProduct.files.length > 0"
+                :src="getImageUrl(relatedProduct.files[0].url)"
+                :alt="locale === 'zh' ? relatedProduct.nameZh : relatedProduct.nameEn"
                 class="w-full h-full object-cover"
                 loading="lazy"
               />
             </div>
             <div class="p-4">
               <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
-                {{ relatedProduct.name[locale] }}
+                {{ locale === 'zh' ? relatedProduct.nameZh : relatedProduct.nameEn }}
               </h3>
               <p class="text-sm text-gray-600 mb-2">{{ relatedProduct.partNumber }}</p>
               <div class="flex gap-2">
-                <span :class="`badge-${relatedProduct.condition.toLowerCase()}`" class="text-xs">
-                  {{ t(`product.condition_${relatedProduct.condition.toLowerCase()}`) }}
+                <span v-if="relatedProduct.conditionEn" :class="`badge-${relatedProduct.conditionEn.toLowerCase()}`" class="text-xs">
+                  {{ locale === 'zh' && relatedProduct.conditionZh ? relatedProduct.conditionZh : relatedProduct.conditionEn }}
                 </span>
               </div>
             </div>
@@ -211,47 +211,57 @@ const route = useRoute()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
-const { fetchProductBySlug, fetchRelatedProducts } = useMockApi()
+const { getImageUrl } = useImageUrl()
 
 const selectedImageIndex = ref(0)
 
-// Fetch product data - USING MOCK DATA
-const { data: product, pending, error } = await useAsyncData(
-  `product-${route.params.slug}`,
-  () => fetchProductBySlug(route.params.slug)
+// Fetch product data from real API
+const { data: product, pending, error } = await useFetch(
+  `${config.public.apiBase}/auto-parts/${route.params.slug}`,
+  { key: `product-${route.params.slug}`, lazy: true }
 )
 
-// Fetch related products
-const { data: relatedProducts } = await useAsyncData(
-  `related-${route.params.slug}`,
-  () => product.value ? fetchRelatedProducts(product.value.id) : []
-)
-
-// Real API (uncomment when backend is ready):
-// const { data: product, pending, error } = await useFetch(
-//   `${config.public.apiBase}/products/${route.params.slug}`,
-//   { key: `product-${route.params.slug}`, lazy: true }
-// )
-// const { data: relatedProducts } = await useFetch(
-//   `${config.public.apiBase}/products/${route.params.slug}/related`,
-//   { key: `related-${route.params.slug}`, lazy: true }
-// )
+// Fetch related products only after product is loaded
+const relatedProducts = ref(null)
+watch(() => product.value?.id, async (productId) => {
+  if (productId) {
+    const { data } = await useFetch(
+      `${config.public.apiBase}/auto-parts/${productId}/related?limit=4`,
+      { key: `related-${productId}` }
+    )
+    relatedProducts.value = data.value
+  }
+}, { immediate: true })
 
 // WhatsApp message
 const whatsappMessage = computed(() => {
   if (!product.value) return ''
-  const productName = product.value.name[locale.value]
+  const productName = locale.value === 'zh' ? product.value.nameZh : product.value.nameEn
   const partNumber = product.value.partNumber
   return encodeURIComponent(`Hello, I'm interested in ${productName} (Part #${partNumber})`)
 })
 
 // SEO Meta Tags
 useSeoMeta({
-  title: () => product.value ? `${product.value.name[locale.value]} - ${product.value.partNumber}` : 'Product',
-  description: () => product.value?.description?.[locale.value] || '',
-  ogTitle: () => product.value ? `${product.value.name[locale.value]} - AutoPartCo China` : 'Product',
-  ogDescription: () => product.value?.description?.[locale.value] || '',
-  ogImage: () => product.value?.images?.[0] || '',
+  title: () => {
+    if (!product.value) return 'Product'
+    const name = locale.value === 'zh' ? product.value.nameZh : product.value.nameEn
+    return `${name} - ${product.value.partNumber}`
+  },
+  description: () => {
+    if (!product.value) return ''
+    return locale.value === 'zh' ? product.value.descriptionZh : product.value.descriptionEn
+  },
+  ogTitle: () => {
+    if (!product.value) return 'Product'
+    const name = locale.value === 'zh' ? product.value.nameZh : product.value.nameEn
+    return `${name} - AutoPartCo China`
+  },
+  ogDescription: () => {
+    if (!product.value) return ''
+    return locale.value === 'zh' ? product.value.descriptionZh : product.value.descriptionEn
+  },
+  ogImage: () => product.value?.files?.[0]?.url || '',
   ogType: 'product'
 })
 
@@ -262,21 +272,27 @@ useHead({
       type: 'application/ld+json',
       children: () => {
         if (!product.value) return '{}'
+        const name = locale.value === 'zh' ? product.value.nameZh : product.value.nameEn
+        const description = locale.value === 'zh' ? product.value.descriptionZh : product.value.descriptionEn
+        const carBrand = locale.value === 'zh' ? product.value.carBrandZh : product.value.carBrandEn
+        const factoryAddress = locale.value === 'zh' ? product.value.factoryAddressZh : product.value.factoryAddressEn
+        const images = product.value.files?.map(file => file.url) || []
+
         return JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: product.value.name[locale.value],
-          description: product.value.description?.[locale.value] || '',
+          name: name,
+          description: description || '',
           sku: product.value.partNumber,
           brand: {
             '@type': 'Brand',
-            name: product.value.carBrand?.[locale.value] || 'AutoPartCo'
+            name: carBrand || 'AutoPartCo'
           },
           manufacturer: {
             '@type': 'Organization',
-            name: product.value.factoryAddress?.[locale.value] || ''
+            name: factoryAddress || ''
           },
-          image: product.value.images || []
+          image: images
         })
       }
     }

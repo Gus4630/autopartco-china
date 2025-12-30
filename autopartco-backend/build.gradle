@@ -1,0 +1,103 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '4.0.1'
+    id 'checkstyle'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'anihc'
+version = '0.0.1-SNAPSHOT'
+description = 'autopartco-backend'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.9'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+checkstyle {
+    toolVersion = '10.12.1'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Framework's libs
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${webmvcUiVersion}"
+
+    // Security Dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //WEB Socket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // OAuth2 Client Dependencies
+    implementation 'com.google.api-client:google-api-client:2.2.0'
+
+    implementation 'com.opencsv:opencsv:5.9'
+    implementation 'com.google.genai:google-genai:1.4.1'
+    // JWT Dependencies
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
+
+    // Email Dependencies (for future email verification)
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.retry:spring-retry:2.0.5'
+
+    // Lombok and other utilities
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation "net.logstash.logback:logstash-logback-encoder:${logstashLogbackVersion}"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Database related - PostgreSQL ONLY
+    implementation 'org.springframework.boot:spring-boot-starter-liquibase'
+    implementation 'org.postgresql:postgresql'
+
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation "com.tngtech.archunit:archunit-junit5:${archUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

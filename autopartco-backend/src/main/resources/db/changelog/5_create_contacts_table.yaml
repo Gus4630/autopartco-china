@@ -1,0 +1,71 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5_create_contacts_table
+      author: Huseyin Salimov
+      changes:
+        - createTable:
+            tableName: contacts
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(50)
+              - column:
+                  name: subject
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_read
+                  type: boolean
+                  defaultValueBoolean: false
+
+              # Audit fields
+              - column:
+                  name: created_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: created_by
+                  type: UUID
+              - column:
+                  name: updated_by
+                  type: UUID
+
+        # Indexes
+        - createIndex:
+            tableName: contacts
+            indexName: idx_contacts_email
+            columns:
+              - column:
+                  name: email
+        - createIndex:
+            tableName: contacts
+            indexName: idx_contacts_is_read
+            columns:
+              - column:
+                  name: is_read

@@ -40,14 +40,6 @@
                 {{ t('footer.categories') }}
               </NuxtLink>
             </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/brands')"
-                class="text-sm hover:text-primary-400 transition-colors"
-              >
-                {{ t('footer.brands') }}
-              </NuxtLink>
-            </li>
           </ul>
         </div>
 
@@ -57,6 +49,30 @@
             {{ t('footer.support') }}
           </h3>
           <ul class="space-y-2">
+            <li>
+              <NuxtLink
+                :to="localePath('/faq')"
+                class="text-sm hover:text-primary-400 transition-colors"
+              >
+                FAQ
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink
+                :to="localePath('/quality-guide')"
+                class="text-sm hover:text-primary-400 transition-colors"
+              >
+                {{ locale === 'zh' ? '质量指南' : 'Quality Guide' }}
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink
+                :to="localePath('/shipping')"
+                class="text-sm hover:text-primary-400 transition-colors"
+              >
+                {{ t('footer.shipping') }}
+              </NuxtLink>
+            </li>
             <li>
               <NuxtLink
                 :to="localePath('/about')"
@@ -71,14 +87,6 @@
                 class="text-sm hover:text-primary-400 transition-colors"
               >
                 {{ t('footer.contactUs') }}
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/shipping')"
-                class="text-sm hover:text-primary-400 transition-colors"
-              >
-                {{ t('footer.shipping') }}
               </NuxtLink>
             </li>
           </ul>
@@ -140,7 +148,7 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
 

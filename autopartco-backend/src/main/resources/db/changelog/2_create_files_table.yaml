@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2_create_files_table
+      author: Huseyin Salimov
+      changes:
+        - createTable:
+            tableName: files
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(500)
+              - column:
+                  name: file_path
+                  type: varchar(500)
+              - column:
+                  name: file_name
+                  type: varchar(255)
+              - column:
+                  name: file_size
+                  type: bigint
+              - column:
+                  name: mime_type
+                  type: varchar(100)
+
+              # Audit fields
+              - column:
+                  name: created_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: created_by
+                  type: UUID
+              - column:
+                  name: updated_by
+                  type: UUID
+
+        # Indexes
+        - createIndex:
+            tableName: files
+            indexName: idx_files_url
+            columns:
+              - column:
+                  name: url

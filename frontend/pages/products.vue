@@ -17,27 +17,14 @@
           </div>
 
           <!-- Category Filter -->
-          <div>
+          <div class="md:col-span-2">
             <select
               v-model="selectedCategory"
               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="">{{ locale === 'zh' ? '所有分类' : 'All Categories' }}</option>
-              <option v-for="category in categories" :key="category.id" :value="category.id">
-                {{ category.name[locale] }}
-              </option>
-            </select>
-          </div>
-
-          <!-- Brand Filter -->
-          <div>
-            <select
-              v-model="selectedBrand"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            >
-              <option value="">{{ locale === 'zh' ? '所有品牌' : 'All Brands' }}</option>
-              <option v-for="brand in brands" :key="brand.id" :value="brand.id">
-                {{ brand.name[locale] }}
+              <option v-for="category in categories" :key="category.nameEn" :value="category.nameEn">
+                {{ locale === 'zh' ? category.nameZh : category.nameEn }}
               </option>
             </select>
           </div>
@@ -53,28 +40,31 @@
           class="card hover:shadow-lg transition-shadow"
         >
           <div class="aspect-square bg-gray-100">
-            <NuxtImg
-              v-if="product.images && product.images.length > 0"
-              :src="product.images[0]"
-              :alt="product.name[locale]"
+            <img
+              v-if="product.files && product.files.length > 0"
+              :src="getImageUrl(product.files[0].url)"
+              :alt="locale === 'zh' ? product.nameZh : product.nameEn"
               class="w-full h-full object-cover"
               loading="lazy"
             />
           </div>
           <div class="p-4">
             <div class="flex gap-2 mb-2">
-              <span :class="`badge-${product.condition.toLowerCase()}`">
-                {{ t(`product.condition_${product.condition.toLowerCase()}`) }}
+              <span v-if="product.conditionEn" :class="`badge-${product.conditionEn.toLowerCase()}`">
+                {{ locale === 'zh' && product.conditionZh ? product.conditionZh : product.conditionEn }}
               </span>
-              <span :class="`badge-${product.quality.toLowerCase()}`">
+              <span v-if="product.quality" :class="`badge-${product.quality.toLowerCase()}`">
                 {{ t(`product.quality_${product.quality.toLowerCase()}`) }}
               </span>
             </div>
             <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
-              {{ product.name[locale] }}
+              {{ locale === 'zh' ? product.nameZh : product.nameEn }}
             </h3>
             <p class="text-sm text-gray-600 mb-1">{{ product.partNumber }}</p>
-            <p class="text-sm text-gray-600">{{ product.carBrand[locale] }} - {{ product.carModel[locale] }}</p>
+            <p class="text-sm text-gray-600">
+              {{ locale === 'zh' ? product.carBrandZh : product.carBrandEn }} -
+              {{ locale === 'zh' ? product.carModelZh : product.carModelEn }}
+            </p>
           </div>
         </NuxtLink>
       </div>
@@ -101,30 +91,25 @@ import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
-const { fetchProducts, fetchCategories, fetchBrands } = useMockApi()
+const { getImageUrl } = useImageUrl()
 
 const searchQuery = ref('')
 const selectedCategory = ref('')
-const selectedBrand = ref('')
 
-// Fetch products - USING MOCK DATA
-const { data: products, pending } = await useAsyncData('all-products', () => fetchProducts())
-const { data: categories } = await useAsyncData('categories', () => fetchCategories())
-const { data: brands } = await useAsyncData('brands', () => fetchBrands())
+// Fetch products from real API
+const { data: productsData, pending } = await useFetch(
+  `${config.public.apiBase}/auto-parts?page=0&size=100`,
+  { key: 'all-products', lazy: true }
+)
 
-// Real API (uncomment when backend is ready):
-// const { data: products, pending } = await useFetch(
-//   `${config.public.apiBase}/products`,
-//   { key: 'all-products', lazy: true }
-// )
-// const { data: categories } = await useFetch(
-//   `${config.public.apiBase}/categories`,
-//   { key: 'categories', lazy: true }
-// )
-// const { data: brands } = await useFetch(
-//   `${config.public.apiBase}/brands`,
-//   { key: 'brands', lazy: true }
-// )
+// Fetch categories from real API
+const { data: categories } = await useFetch(
+  `${config.public.apiBase}/categories`,
+  { key: 'categories', lazy: true }
+)
+
+// Extract products from paginated response
+const products = computed(() => productsData.value?.content || productsData.value || [])
 
 // Filtered products
 const filteredProducts = computed(() => {
@@ -134,18 +119,16 @@ const filteredProducts = computed(() => {
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase()
-    filtered = filtered.filter(product =>
-      product.name[locale.value].toLowerCase().includes(query) ||
-      product.partNumber.toLowerCase().includes(query)
-    )
+    filtered = filtered.filter(product => {
+      const nameEn = product.nameEn?.toLowerCase() || ''
+      const nameZh = product.nameZh?.toLowerCase() || ''
+      const partNumber = product.partNumber?.toLowerCase() || ''
+      return nameEn.includes(query) || nameZh.includes(query) || partNumber.includes(query)
+    })
   }
 
   if (selectedCategory.value) {
-    filtered = filtered.filter(product => product.category?.id === selectedCategory.value)
-  }
-
-  if (selectedBrand.value) {
-    filtered = filtered.filter(product => product.brand?.id === selectedBrand.value)
+    filtered = filtered.filter(product => product.categoryEn === selectedCategory.value)
   }
 
   return filtered

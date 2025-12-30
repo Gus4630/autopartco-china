@@ -1,0 +1,89 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3_create_auto_part_files_table
+      author: Huseyin Salimov
+      changes:
+        - createTable:
+            tableName: auto_part_files
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: auto_part_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: display_order
+                  type: integer
+                  defaultValue: 0
+              - column:
+                  name: is_primary
+                  type: boolean
+                  defaultValue: false
+
+              # Audit fields
+              - column:
+                  name: created_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+
+        # Foreign keys
+        - addForeignKeyConstraint:
+            baseTableName: auto_part_files
+            baseColumnNames: auto_part_id
+            constraintName: fk_auto_part_files_auto_part
+            referencedTableName: auto_parts
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: auto_part_files
+            baseColumnNames: file_id
+            constraintName: fk_auto_part_files_file
+            referencedTableName: files
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        # Unique constraint to prevent duplicate associations
+        - addUniqueConstraint:
+            tableName: auto_part_files
+            columnNames: auto_part_id, file_id
+            constraintName: uk_auto_part_file
+
+        # Indexes
+        - createIndex:
+            tableName: auto_part_files
+            indexName: idx_auto_part_files_auto_part_id
+            columns:
+              - column:
+                  name: auto_part_id
+
+        - createIndex:
+            tableName: auto_part_files
+            indexName: idx_auto_part_files_file_id
+            columns:
+              - column:
+                  name: file_id
+
+        - createIndex:
+            tableName: auto_part_files
+            indexName: idx_auto_part_files_display_order
+            columns:
+              - column:
+                  name: auto_part_id
+              - column:
+                  name: display_order

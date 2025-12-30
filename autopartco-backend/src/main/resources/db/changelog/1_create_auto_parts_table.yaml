@@ -1,0 +1,172 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1_create_auto_parts_table
+      author: Huseyin Salimov
+      changes:
+        - createTable:
+            tableName: auto_parts
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: slug
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: part_number
+                  type: varchar(50)
+
+              # Names
+              - column:
+                  name: name_en
+                  type: varchar(200)
+              - column:
+                  name: name_zh
+                  type: varchar(200)
+
+              # Descriptions
+              - column:
+                  name: description_en
+                  type: text
+              - column:
+                  name: description_zh
+                  type: text
+
+              # Category
+              - column:
+                  name: category_en
+                  type: varchar(100)
+              - column:
+                  name: category_zh
+                  type: varchar(100)
+
+              # Factory Address
+              - column:
+                  name: factory_address_en
+                  type: varchar(500)
+              - column:
+                  name: factory_address_zh
+                  type: varchar(500)
+
+              # Manufacturing Country
+              - column:
+                  name: manufacturing_country_en
+                  type: varchar(100)
+              - column:
+                  name: manufacturing_country_zh
+                  type: varchar(100)
+
+              # Condition
+              - column:
+                  name: condition_en
+                  type: varchar(50)
+              - column:
+                  name: condition_zh
+                  type: varchar(50)
+
+              # Quality
+              - column:
+                  name: quality
+                  type: varchar(50)
+
+              # Car Brand
+              - column:
+                  name: car_brand_en
+                  type: varchar(100)
+              - column:
+                  name: car_brand_zh
+                  type: varchar(100)
+
+              # Car Model
+              - column:
+                  name: car_model_en
+                  type: varchar(100)
+              - column:
+                  name: car_model_zh
+                  type: varchar(100)
+
+              # Part Year
+              - column:
+                  name: part_year
+                  type: integer
+
+              # Status
+              - column:
+                  name: is_active
+                  type: boolean
+              # Audit fields
+              - column:
+                  name: created_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_by
+                  type: UUID
+              - column:
+                  name: updated_by
+                  type: UUID
+
+        # Indexes for common queries
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_slug
+            columns:
+              - column:
+                  name: slug
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_part_number
+            columns:
+              - column:
+                  name: part_number
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_category_en
+            columns:
+              - column:
+                  name: category_en
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_brand_en
+            columns:
+              - column:
+                  name: car_brand_en
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_brand_model
+            columns:
+              - column:
+                  name: car_brand_en
+              - column:
+                  name: car_model_en
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_year
+            columns:
+              - column:
+                  name: part_year
+
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_country_en
+            columns:
+              - column:
+                  name: manufacturing_country_en

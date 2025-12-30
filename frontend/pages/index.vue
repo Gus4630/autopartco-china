@@ -108,28 +108,31 @@
             class="card hover:shadow-lg transition-shadow"
           >
             <div class="aspect-square bg-gray-100">
-              <NuxtImg
-                v-if="product.images && product.images.length > 0"
-                :src="product.images[0]"
-                :alt="product.name[locale]"
+              <img
+                v-if="product.files && product.files.length > 0"
+                :src="getImageUrl(product.files[0].url)"
+                :alt="locale === 'zh' ? product.nameZh : product.nameEn"
                 class="w-full h-full object-cover"
                 loading="lazy"
               />
             </div>
             <div class="p-4">
               <div class="flex gap-2 mb-2">
-                <span :class="`badge-${product.condition.toLowerCase()}`">
-                  {{ t(`product.condition_${product.condition.toLowerCase()}`) }}
+                <span v-if="product.conditionEn" :class="`badge-${product.conditionEn.toLowerCase()}`">
+                  {{ locale === 'zh' && product.conditionZh ? product.conditionZh : product.conditionEn }}
                 </span>
-                <span :class="`badge-${product.quality.toLowerCase()}`">
+                <span v-if="product.quality" :class="`badge-${product.quality.toLowerCase()}`">
                   {{ t(`product.quality_${product.quality.toLowerCase()}`) }}
                 </span>
               </div>
               <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">
-                {{ product.name[locale] }}
+                {{ locale === 'zh' ? product.nameZh : product.nameEn }}
               </h3>
               <p class="text-sm text-gray-600 mb-1">{{ product.partNumber }}</p>
-              <p class="text-sm text-gray-600">{{ product.carBrand[locale] }} - {{ product.carModel[locale] }}</p>
+              <p class="text-sm text-gray-600">
+                {{ locale === 'zh' ? product.carBrandZh : product.carBrandEn }} -
+                {{ locale === 'zh' ? product.carModelZh : product.carModelEn }}
+              </p>
             </div>
           </NuxtLink>
         </div>
@@ -208,22 +211,19 @@ import { useI18n } from 'vue-i18n'
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
-const { fetchFeaturedProducts } = useMockApi()
+const { getImageUrl } = useImageUrl()
 
-// Fetch featured products - USING MOCK DATA
-const { data: featuredProducts, pending } = await useAsyncData(
-  'featured-products',
-  () => fetchFeaturedProducts()
+// Fetch featured products from real API
+const { data: productsData, pending } = await useFetch(
+  `${config.public.apiBase}/auto-parts?page=0&size=6`,
+  {
+    key: 'featured-products',
+    lazy: true
+  }
 )
 
-// Real API (uncomment when backend is ready):
-// const { data: featuredProducts } = await useFetch(
-//   `${config.public.apiBase}/products/featured`,
-//   {
-//     key: 'featured-products',
-//     lazy: true
-//   }
-// )
+// Extract products from paginated response
+const featuredProducts = computed(() => productsData.value?.content || [])
 
 // SEO Meta Tags
 useSeoMeta({

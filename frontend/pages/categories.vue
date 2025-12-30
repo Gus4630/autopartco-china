@@ -6,8 +6,8 @@
       <div v-if="categories && categories.length > 0" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <NuxtLink
           v-for="category in categories"
-          :key="category.id"
-          :to="localePath(`/products?category=${category.id}`)"
+          :key="category.nameEn"
+          :to="localePath(`/products?category=${category.nameEn}`)"
           class="card hover:shadow-lg transition-shadow p-6 text-center"
         >
           <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -16,10 +16,10 @@
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-gray-900 mb-2">
-            {{ category.name[locale] }}
+            {{ locale === 'zh' ? category.nameZh : category.nameEn }}
           </h3>
-          <p v-if="category.description" class="text-sm text-gray-600">
-            {{ category.description[locale] }}
+          <p class="text-sm text-gray-600">
+            {{ category.productCount }} {{ locale === 'zh' ? '个产品' : 'products' }}
           </p>
         </NuxtLink>
       </div>
@@ -40,15 +40,11 @@ import { useI18n } from 'vue-i18n'
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const { fetchCategories } = useMockApi()
+const config = useRuntimeConfig()
 
-// USING MOCK DATA
-const { data: categories, pending } = await useAsyncData('all-categories', () => fetchCategories())
-
-// Real API (uncomment when backend is ready):
-// const config = useRuntimeConfig()
-// const { data: categories, pending } = await useFetch(
-//   `${config.public.apiBase}/categories`,
-//   { key: 'all-categories', lazy: true }
-// )
+// Using real API
+const { data: categories, pending } = await useFetch(
+  `${config.public.apiBase}/categories`,
+  { key: 'all-categories', lazy: true }
+)
 </script>

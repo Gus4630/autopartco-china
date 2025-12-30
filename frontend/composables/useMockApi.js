@@ -12,7 +12,7 @@ import {
   getProductsByBrand
 } from '~/utils/mockData'
 
-const USE_MOCK_DATA = true // Set to false to use real API
+const USE_MOCK_DATA = false // Set to false to use real API
 
 export const useMockApi = () => {
   const config = useRuntimeConfig()
@@ -21,13 +21,19 @@ export const useMockApi = () => {
   const delay = (ms = 300) => new Promise(resolve => setTimeout(resolve, ms))
 
   // Get all products
-  const fetchProducts = async () => {
+  const fetchProducts = async (params = {}) => {
     if (USE_MOCK_DATA) {
       await delay()
-      return mockProducts
+      return { content: mockProducts, totalElements: mockProducts.length, totalPages: 1 }
     }
-    // Real API call
-    return await $fetch(`${config.public.apiBase}/products`)
+    // Real API call - returns Spring Page object
+    const queryParams = new URLSearchParams({
+      page: params.page || 0,
+      size: params.size || 20,
+      ...(params.category && { category: params.category }),
+      ...(params.search && { search: params.search })
+    }).toString()
+    return await $fetch(`${config.public.apiBase}/auto-parts?${queryParams}`)
   }
 
   // Get product by slug
@@ -41,7 +47,7 @@ export const useMockApi = () => {
       return product
     }
     // Real API call
-    return await $fetch(`${config.public.apiBase}/products/${slug}`)
+    return await $fetch(`${config.public.apiBase}/auto-parts/${slug}`)
   }
 
   // Get related products
@@ -51,17 +57,18 @@ export const useMockApi = () => {
       return getRelatedProducts(productId)
     }
     // Real API call
-    return await $fetch(`${config.public.apiBase}/products/${productId}/related`)
+    return await $fetch(`${config.public.apiBase}/auto-parts/${productId}/related`)
   }
 
-  // Get featured products
+  // Get featured products (first 8 products)
   const fetchFeaturedProducts = async () => {
     if (USE_MOCK_DATA) {
       await delay()
       return getFeaturedProducts()
     }
-    // Real API call
-    return await $fetch(`${config.public.apiBase}/products/featured`)
+    // Real API call - fetch first 8 products
+    const response = await $fetch(`${config.public.apiBase}/auto-parts?page=0&size=8`)
+    return response.content || []
   }
 
   // Get all categories
@@ -74,14 +81,14 @@ export const useMockApi = () => {
     return await $fetch(`${config.public.apiBase}/categories`)
   }
 
-  // Get all brands
+  // Get all brands (disabled - hidden from UI)
   const fetchBrands = async () => {
     if (USE_MOCK_DATA) {
       await delay()
       return mockBrands
     }
-    // Real API call
-    return await $fetch(`${config.public.apiBase}/brands`)
+    // Brands functionality is disabled
+    return []
   }
 
   // Submit contact form
