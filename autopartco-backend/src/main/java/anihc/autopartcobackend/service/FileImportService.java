@@ -5,22 +5,26 @@ import anihc.autopartcobackend.dao.repository.AutoPartRepository;
 import anihc.autopartcobackend.dao.repository.FileRepository;
 import jakarta.transaction.Transactional;
 import java.io.File;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class FileImportService implements CommandLineRunner {
 
-    private static final String PICTURES_PATH = "files/pictures";
     private static final Pattern ID_PATTERN = Pattern.compile("^(\\d+)");
+
+    @Value("${files.pictures.path}")
+    private String picturesPath;
 
     private final FileRepository fileRepository;
     private final AutoPartRepository autoPartRepository;
@@ -37,12 +41,21 @@ public class FileImportService implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Starting file import process...");
+        log.info("Pictures directory: {}", picturesPath);
 
         try {
-            File picturesDir = new ClassPathResource(PICTURES_PATH).getFile();
+            Path picturesDirPath = Paths.get(picturesPath);
+
+            // Create directory if it doesn't exist
+            if (!Files.exists(picturesDirPath)) {
+                log.info("Creating pictures directory: {}", picturesPath);
+                Files.createDirectories(picturesDirPath);
+            }
+
+            File picturesDir = picturesDirPath.toFile();
 
             if (!picturesDir.exists() || !picturesDir.isDirectory()) {
-                log.warn("Pictures directory not found: {}", PICTURES_PATH);
+                log.warn("Pictures directory not found: {}", picturesPath);
                 return;
             }
 
@@ -72,7 +85,7 @@ public class FileImportService implements CommandLineRunner {
 
             log.info("File import completed. Success: {}, Skipped: {}", successCount, skipCount);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Error accessing pictures directory", e);
         }
     }
@@ -92,7 +105,7 @@ public class FileImportService implements CommandLineRunner {
         }
 
         // Check if file already exists
-        String filePath = PICTURES_PATH + "/" + file.getName();
+        String filePath = file.getAbsolutePath();
         Optional<FileEntity> existingFile = fileRepository.findByFilePath(filePath);
 
         FileEntity fileEntity;

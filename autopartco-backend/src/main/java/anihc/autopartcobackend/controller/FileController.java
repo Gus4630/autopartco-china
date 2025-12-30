@@ -4,9 +4,12 @@ import anihc.autopartcobackend.dao.entity.FileEntity;
 import anihc.autopartcobackend.dao.repository.FileRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,12 +43,14 @@ public class FileController {
                 return ResponseEntity.notFound().build();
             }
 
-            Resource resource = new ClassPathResource(fileEntity.getFilePath());
+            Path filePath = Paths.get(fileEntity.getFilePath());
 
-            if (!resource.exists()) {
+            if (!Files.exists(filePath)) {
                 log.warn("Physical file not found: {}", fileEntity.getFilePath());
                 return ResponseEntity.notFound().build();
             }
+
+            Resource resource = new FileSystemResource(filePath);
 
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(fileEntity.getMimeType()))
