@@ -45,14 +45,6 @@ databaseChangeLog:
                   name: category_zh
                   type: varchar(100)
 
-              # Factory Address
-              - column:
-                  name: factory_address_en
-                  type: varchar(500)
-              - column:
-                  name: factory_address_zh
-                  type: varchar(500)
-
               # Manufacturing Country
               - column:
                   name: manufacturing_country_en

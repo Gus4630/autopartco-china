@@ -1,0 +1,577 @@
+{
+  "common": {
+    "company": "Shandong Baijian International Trade Co., Ltd",
+    "search": "Search",
+    "searchPlaceholder": "Search for parts by name or part number...",
+    "viewDetails": "View Details",
+    "contactUs": "Contact Us",
+    "getQuote": "Get Quote",
+    "learnMore": "Learn More",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "about": "About Us",
+    "contact": "Contact",
+    "shipping": "Shipping",
+    "language": "Language",
+    "english": "English",
+    "chinese": "中文"
+  },
+  "header": {
+    "tagline": "Professional Supplier of Sinotruk & Weichai Parts",
+    "resources": "Resources",
+    "faq": "FAQ",
+    "qualityGuide": "Quality Guide"
+  },
+  "footer": {
+    "company": "Company",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "products": "Products",
+    "allProducts": "All Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "support": "Support",
+    "faq": "FAQ",
+    "shipping": "Shipping Info",
+    "returns": "Returns Policy",
+    "contact": "Contact Information",
+    "phone": "Phone",
+    "landline": "Landline",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "wechat": "WeChat",
+    "copyright": "© {year} Shandong Baijian International Trade Co., Ltd. All rights reserved."
+  },
+  "product": {
+    "partNumber": "Part Number",
+    "category": "Category",
+    "brand": "Brand",
+    "condition": "Condition",
+    "qualityGrade": "Quality Grade",
+    "stock": "Stock",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "limitedStock": "Limited Stock",
+    "price": "Price",
+    "negotiable": "Negotiable",
+    "contactForPrice": "Contact for Price",
+    "quoteRequired": "Quote Required",
+    "description": "Description",
+    "specifications": "Specifications",
+    "features": "Features",
+    "applications": "Applications",
+    "warranty": "Warranty",
+    "shipping": "Shipping",
+    "relatedProducts": "Related Products",
+    "condition_new": "New",
+    "condition_used": "Used",
+    "condition_refurbished": "Refurbished",
+    "quality_oem": "OEM",
+    "quality_original": "OEM/Original",
+    "quality_genuine": "Genuine",
+    "quality_aftermarket": "Aftermarket",
+    "quality_a": "Grade A",
+    "quality_b": "Grade B",
+    "quality_c": "Grade C"
+  },
+  "home": {
+    "hero": {
+      "title": "Quality Auto Parts from China",
+      "subtitle": "Specialized in Sinotruk and Weichai parts with competitive prices and reliable shipping worldwide",
+      "cta": "Browse Products"
+    },
+    "features": {
+      "title": "Why Choose Us",
+      "quality": {
+        "title": "Genuine Parts",
+        "description": "We supply only genuine and OEM quality parts from trusted manufacturers"
+      },
+      "pricing": {
+        "title": "Competitive Prices",
+        "description": "Direct from manufacturers in China, ensuring the best prices for quality parts"
+      },
+      "shipping": {
+        "title": "Global Shipping",
+        "description": "Reliable worldwide shipping with tracking and insurance"
+      },
+      "support": {
+        "title": "Expert Support",
+        "description": "Professional bilingual customer service to help you find the right parts"
+      }
+    },
+    "about": {
+      "title": "About Our Company",
+      "description": "Shandong Baijian International Trade Co., Ltd is a professional supplier of genuine auto parts, specializing in Sinotruk (CNHTC) and Weichai parts. We are committed to providing high-quality parts at competitive prices with excellent customer service.",
+      "experience": "Years of Experience in Auto Parts Export",
+      "customers": "Satisfied Customers Worldwide",
+      "parts": "Parts in Stock"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team for inquiries and quotes",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Message",
+      "subject": "Subject",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! We will contact you soon.",
+      "error": "Failed to send message. Please try again or contact us directly."
+    },
+    "info": {
+      "title": "Contact Information",
+      "address": "Address",
+      "addressValue": "Shandong Province, China",
+      "hours": "Business Hours",
+      "hoursValue": "Monday - Friday: 9:00 AM - 6:00 PM (China Time)"
+    }
+  },
+  "shipping": {
+    "title": "Shipping Information",
+    "subtitle": "Learn about our shipping methods and delivery times",
+    "methods": {
+      "title": "Shipping Methods",
+      "sea": {
+        "title": "Sea Freight",
+        "description": "Most economical option for large orders. Transit time: 20-45 days depending on destination.",
+        "bestFor": "Best for: Bulk orders, heavy items, non-urgent deliveries"
+      },
+      "air": {
+        "title": "Air Freight",
+        "description": "Faster delivery for urgent orders. Transit time: 5-10 days depending on destination.",
+        "bestFor": "Best for: Urgent orders, smaller shipments, high-value items"
+      },
+      "express": {
+        "title": "Express Courier (DHL, FedEx, UPS)",
+        "description": "Fastest delivery option with door-to-door service. Transit time: 3-7 days.",
+        "bestFor": "Best for: Small urgent orders, samples, quick restocking"
+      }
+    },
+    "process": {
+      "title": "Shipping Process",
+      "step1": {
+        "title": "Order Confirmation",
+        "description": "Once your order is confirmed and payment is received, we prepare your shipment."
+      },
+      "step2": {
+        "title": "Quality Check & Packaging",
+        "description": "All parts are thoroughly inspected and securely packaged for international shipping."
+      },
+      "step3": {
+        "title": "Shipping & Tracking",
+        "description": "Your order is shipped and you receive a tracking number to monitor your delivery."
+      },
+      "step4": {
+        "title": "Customs Clearance",
+        "description": "We provide all necessary documentation for smooth customs clearance in your country."
+      },
+      "step5": {
+        "title": "Delivery",
+        "description": "Your parts are delivered to your specified address."
+      }
+    },
+    "info": {
+      "title": "Additional Information",
+      "insurance": {
+        "title": "Shipping Insurance",
+        "description": "We recommend insurance for all shipments. Insurance costs typically 2-3% of order value."
+      },
+      "tracking": {
+        "title": "Tracking & Updates",
+        "description": "All shipments include tracking numbers. We provide regular updates throughout the shipping process."
+      },
+      "customs": {
+        "title": "Customs & Duties",
+        "description": "Import duties and taxes are the responsibility of the buyer. We provide all necessary customs documentation."
+      },
+      "packaging": {
+        "title": "Packaging",
+        "description": "All parts are professionally packaged to ensure they arrive in perfect condition."
+      }
+    },
+    "cta": {
+      "title": "Need a Shipping Quote?",
+      "description": "Contact us with your order details and destination for a detailed shipping quote.",
+      "button": "Get Shipping Quote"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about our products and services",
+    "search": "Search questions...",
+    "noResults": "No questions found matching your search",
+    "categories": {
+      "products": "Product Information",
+      "ordering": "Ordering Process",
+      "shipping": "Shipping & Delivery",
+      "payment": "Payment & Returns",
+      "technical": "Technical Support"
+    },
+    "products": {
+      "q1": {
+        "question": "What quality grades do you offer?",
+        "answer": "We offer various quality grades including OEM (Original Equipment Manufacturer), Genuine/Original parts, and aftermarket parts rated as Grade A (premium), Grade B (standard), and Grade C (economy). Each grade has different quality levels and price points to suit your needs."
+      },
+      "q2": {
+        "question": "How can I verify part authenticity?",
+        "answer": "All our genuine parts come with manufacturer certificates and can be verified through the part number. We provide detailed documentation including factory addresses, manufacturing dates, and quality certificates. You can also contact us with your part number for verification."
+      },
+      "q3": {
+        "question": "Do you sell both new and used parts?",
+        "answer": "Yes, we offer new, used, and refurbished parts. Each product listing clearly indicates its condition. New parts are unused and in original packaging, used parts are tested and functional, and refurbished parts have been professionally restored."
+      },
+      "q4": {
+        "question": "What brands do you specialize in?",
+        "answer": "We specialize in Sinotruk (CNHTC) and Weichai parts. This includes all Sinotruk models (HOWO, SITRAK, HOHAN) and Weichai engine series. Our expertise in these brands ensures you get the right parts with expert support."
+      },
+      "q5": {
+        "question": "How do I find compatible parts for my vehicle?",
+        "answer": "You can search by part number, vehicle model, or browse by category. If you're unsure about compatibility, contact us with your VIN number or vehicle details, and our team will help identify the correct parts for your specific model and year."
+      }
+    },
+    "ordering": {
+      "q1": {
+        "question": "How do I place an order?",
+        "answer": "Browse our products and add items to your inquiry list. Contact us via the contact form, WhatsApp, or email with your requirements. We'll send you a detailed quotation including pricing, availability, and shipping costs. Once you approve, we'll process your order."
+      },
+      "q2": {
+        "question": "Can I order parts in bulk?",
+        "answer": "Yes! We welcome bulk orders and offer competitive pricing for large quantities. Contact us with your requirements, and we'll provide special bulk pricing and arrange efficient shipping solutions for your order."
+      },
+      "q3": {
+        "question": "Do you provide quotations?",
+        "answer": "Yes, all orders start with a detailed quotation. We provide transparent pricing including part costs, shipping, and any applicable fees. Quotations are typically provided within 24 hours of your inquiry."
+      },
+      "q4": {
+        "question": "What is your minimum order quantity?",
+        "answer": "There is no strict minimum order quantity. However, for very small orders, shipping costs may be proportionally higher. We recommend ordering multiple parts together to optimize shipping costs."
+      },
+      "q5": {
+        "question": "How long does it take to process an order?",
+        "answer": "In-stock items are typically processed within 1-2 business days. Custom or special-order items may take 3-7 days. We'll provide a clear timeline when you place your order and keep you updated throughout the process."
+      }
+    },
+    "shipping": {
+      "q1": {
+        "question": "Which countries do you ship to?",
+        "answer": "We ship worldwide! We have experience shipping to over 50 countries across Asia, Africa, Europe, Americas, and Oceania. Contact us to confirm shipping options and costs for your specific location."
+      },
+      "q2": {
+        "question": "What shipping methods are available?",
+        "answer": "We offer sea freight (most economical, 20-45 days), air freight (faster, 5-10 days), and express courier services like DHL, FedEx, UPS (fastest, 3-7 days). The best method depends on your urgency, order size, and budget."
+      },
+      "q3": {
+        "question": "How can I track my shipment?",
+        "answer": "Once your order ships, we provide a tracking number for all shipments. You can track your package online, and we'll also send you regular updates on your shipment's progress until it reaches you."
+      },
+      "q4": {
+        "question": "Do you handle customs clearance?",
+        "answer": "We provide all necessary documentation for customs clearance including commercial invoices, packing lists, and certificates of origin. While import duties and taxes are the buyer's responsibility, we ensure all paperwork is complete and accurate."
+      },
+      "q5": {
+        "question": "Is shipping insurance included?",
+        "answer": "Shipping insurance is optional but highly recommended. It typically costs 2-3% of the order value and protects your shipment against loss or damage. We can arrange insurance for all shipments upon request."
+      }
+    },
+    "payment": {
+      "q1": {
+        "question": "What payment methods do you accept?",
+        "answer": "We accept bank wire transfers (T/T), PayPal for smaller orders, Western Union, and MoneyGram. For established customers, we may offer credit terms. Contact us to discuss payment options for your order."
+      },
+      "q2": {
+        "question": "What is your return policy?",
+        "answer": "We accept returns for defective or incorrect parts within 30 days of receipt. Parts must be unused and in original packaging. Contact us immediately if you receive a defective or wrong item, and we'll arrange a replacement or refund."
+      },
+      "q3": {
+        "question": "Do you offer warranties?",
+        "answer": "Yes! New genuine parts come with manufacturer warranties (typically 6-12 months). Aftermarket parts have warranties ranging from 3-6 months depending on the grade. Specific warranty terms are provided with each quotation."
+      },
+      "q4": {
+        "question": "What if I receive the wrong part?",
+        "answer": "If you receive the wrong part due to our error, contact us immediately. We'll arrange for the correct part to be sent at no additional cost and provide a return label for the incorrect item. Your satisfaction is our priority."
+      },
+      "q5": {
+        "question": "Can I get a refund if I'm not satisfied?",
+        "answer": "We strive for 100% customer satisfaction. If you're not satisfied with your purchase for any reason, contact us within 30 days. We'll work with you to find a solution, whether it's a replacement, exchange, or refund for eligible returns."
+      }
+    },
+    "technical": {
+      "q1": {
+        "question": "Do you provide installation support?",
+        "answer": "While we don't provide hands-on installation, we can offer guidance and technical documentation for parts installation. We can also connect you with recommended service centers in your area if needed."
+      },
+      "q2": {
+        "question": "Can you help me identify the right part?",
+        "answer": "Absolutely! Our team has extensive knowledge of Sinotruk and Weichai parts. Send us your vehicle details, photos of the part you need, or the part number, and we'll help identify the exact part you need."
+      },
+      "q3": {
+        "question": "Do you provide technical specifications?",
+        "answer": "Yes, we provide detailed technical specifications for all parts including dimensions, weight, material, compatibility information, and any relevant technical data. This information is included in quotations and product documentation."
+      },
+      "q4": {
+        "question": "What if the part doesn't fit my vehicle?",
+        "answer": "If you ordered based on our recommendation and the part doesn't fit, we'll exchange it for the correct part at no additional cost. This is why we always recommend confirming compatibility before ordering."
+      },
+      "q5": {
+        "question": "Can I get help after purchase?",
+        "answer": "Yes! We provide ongoing support even after your purchase. If you have questions about installation, compatibility, or any issues with the parts, our team is here to help via email, WhatsApp, or phone."
+      }
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "description": "Can't find the answer you're looking for? Our team is here to help.",
+      "button": "Contact Us"
+    }
+  },
+  "qualityGuide": {
+    "title": "Auto Parts Quality Guide",
+    "subtitle": "Understanding quality grades to choose the right parts for your needs",
+    "intro": "Not all auto parts are created equal. Understanding quality grades helps you make informed decisions and get the best value for your investment.",
+    "comparisonTitle": "Quality Grade Comparison",
+    "gradesTitle": "Quality Grades Explained",
+    "labels": {
+      "pros": "Advantages",
+      "cons": "Considerations",
+      "recommended": "Recommended For",
+      "price": "Price Range",
+      "warranty": "Warranty"
+    },
+    "comparison": {
+      "headers": {
+        "grade": "Quality Grade",
+        "quality": "Quality Level",
+        "price": "Price Range",
+        "warranty": "Warranty",
+        "bestFor": "Best For"
+      }
+    },
+    "grades": {
+      "oem": {
+        "badge": "OEM",
+        "title": "OEM (Original Equipment Manufacturer)",
+        "fullName": "Original Equipment Manufacturer",
+        "level": 5,
+        "description": "OEM parts are manufactured by the same company that made the original parts for your vehicle. These are identical to the parts that came with your vehicle from the factory.",
+        "price": "$$$$$",
+        "warranty": "12-24 months",
+        "bestFor": "Critical components, warranty requirements",
+        "pros": [
+          "Exact fit and specifications as original parts",
+          "Highest quality standards and materials",
+          "Best warranty coverage (typically 12-24 months)",
+          "Guaranteed compatibility",
+          "Maintains vehicle resale value"
+        ],
+        "cons": [
+          "Most expensive option",
+          "May require ordering and waiting for delivery",
+          "Sometimes overkill for older vehicles"
+        ],
+        "recommended": "Critical safety components (brakes, steering), vehicles under warranty, maintaining maximum resale value, fleet vehicles requiring standardization."
+      },
+      "original": {
+        "badge": "Original",
+        "title": "Original/Genuine Parts",
+        "fullName": "Factory Original Parts",
+        "level": 5,
+        "description": "Genuine parts are authentic parts supplied through official brand channels. For Sinotruk and Weichai, these are parts bearing official branding and certifications.",
+        "price": "$$$$$",
+        "warranty": "12-18 months",
+        "bestFor": "New vehicles, critical systems",
+        "pros": [
+          "Authentic brand quality",
+          "Official manufacturer backing",
+          "Complete documentation and traceability",
+          "Excellent warranty support",
+          "Perfect fit guaranteed"
+        ],
+        "cons": [
+          "Premium pricing",
+          "May have limited availability",
+          "Longer lead times for some parts"
+        ],
+        "recommended": "Vehicles still in service from manufacturer, critical engine and transmission components, maintaining brand standards, commercial fleet operations."
+      },
+      "genuine": {
+        "badge": "Genuine",
+        "title": "Genuine Quality",
+        "fullName": "Verified Genuine Parts",
+        "level": 4,
+        "description": "High-quality parts that meet or exceed original specifications. These are often manufactured by trusted suppliers to OEM standards.",
+        "price": "$$$$",
+        "warranty": "6-12 months",
+        "bestFor": "Regular maintenance, general repairs",
+        "pros": [
+          "Excellent quality-to-price ratio",
+          "Meets OEM specifications",
+          "Good warranty coverage",
+          "Reliable performance",
+          "Widely available"
+        ],
+        "cons": [
+          "May not have brand name",
+          "Slightly shorter warranty than OEM",
+          "Quality can vary by supplier"
+        ],
+        "recommended": "General repairs and maintenance, replacement of worn parts, cost-conscious quality seekers, most commercial applications."
+      },
+      "a": {
+        "badge": "Grade A",
+        "title": "Grade A (Premium Aftermarket)",
+        "fullName": "Premium Quality Aftermarket",
+        "level": 4,
+        "description": "Top-tier aftermarket parts that closely match OEM quality. Manufactured to high standards with quality materials and rigorous testing.",
+        "price": "$$$",
+        "warranty": "6-12 months",
+        "bestFor": "Quality-conscious buyers, heavy use",
+        "pros": [
+          "Excellent value for money",
+          "High quality materials and manufacturing",
+          "Good performance and durability",
+          "Competitive warranty",
+          "Better pricing than OEM"
+        ],
+        "cons": [
+          "Not original brand",
+          "May have minor cosmetic differences",
+          "Warranty handling varies by supplier"
+        ],
+        "recommended": "Daily use vehicles, professional operations, quality-focused repairs, parts replacement for older vehicles, cost-effective fleet maintenance."
+      },
+      "b": {
+        "badge": "Grade B",
+        "title": "Grade B (Standard Aftermarket)",
+        "fullName": "Standard Quality Aftermarket",
+        "level": 3,
+        "description": "Good quality aftermarket parts that meet basic specifications. Suitable for standard applications and regular use.",
+        "price": "$$",
+        "warranty": "3-6 months",
+        "bestFor": "Standard repairs, budget-conscious buyers",
+        "pros": [
+          "Affordable pricing",
+          "Adequate for normal use",
+          "Meets basic specifications",
+          "Good availability",
+          "Decent warranty coverage"
+        ],
+        "cons": [
+          "May not last as long as higher grades",
+          "Limited warranty period",
+          "Quality consistency can vary",
+          "May not handle extreme conditions"
+        ],
+        "recommended": "Light to moderate use vehicles, non-critical components, budget repairs, older vehicles, parts replacement for resale preparation."
+      },
+      "c": {
+        "badge": "Grade C",
+        "title": "Grade C (Economy Aftermarket)",
+        "fullName": "Economy Quality Aftermarket",
+        "level": 2,
+        "description": "Basic quality aftermarket parts for light use and temporary solutions. Most economical option with acceptable performance for low-demand applications.",
+        "price": "$",
+        "warranty": "0-3 months",
+        "bestFor": "Temporary fixes, very old vehicles",
+        "pros": [
+          "Lowest cost option",
+          "Immediate availability",
+          "Suitable for temporary repairs",
+          "Good for vehicles nearing end of life"
+        ],
+        "cons": [
+          "Shorter lifespan",
+          "Minimal or no warranty",
+          "May not fit perfectly",
+          "Lower quality materials",
+          "Not recommended for critical systems"
+        ],
+        "recommended": "Temporary repairs, vehicles being sold as-is, very old vehicles with low remaining life, non-critical components, emergency replacements."
+      },
+      "aftermarket": {
+        "badge": "Aftermarket",
+        "title": "Aftermarket Parts",
+        "fullName": "General Aftermarket Parts",
+        "level": 3,
+        "description": "Third-party manufactured parts designed to fit your vehicle. Quality varies by manufacturer but generally offers good value.",
+        "price": "$$-$$$",
+        "warranty": "3-6 months",
+        "bestFor": "General replacements, cost savings",
+        "pros": [
+          "More affordable than OEM",
+          "Wide variety of options",
+          "Good availability",
+          "Competitive pricing",
+          "Many reputable manufacturers"
+        ],
+        "cons": [
+          "Quality varies by brand",
+          "Not all meet OEM standards",
+          "May require verification for fit",
+          "Warranty terms vary widely"
+        ],
+        "recommended": "Non-critical repairs, older vehicles, general maintenance, parts with clear quality ratings, buyers who research manufacturers."
+      }
+    },
+    "selectionGuide": {
+      "title": "How to Choose the Right Quality Grade",
+      "intro": "Consider these factors when selecting parts:",
+      "factors": [
+        {
+          "title": "Vehicle Age & Value",
+          "description": "Newer, high-value vehicles benefit most from OEM/Original parts. Older vehicles may be better served by quality aftermarket options."
+        },
+        {
+          "title": "Part Type",
+          "description": "Critical safety components (brakes, steering, suspension) warrant higher grades. Cosmetic or low-stress parts can use lower grades."
+        },
+        {
+          "title": "Usage Intensity",
+          "description": "Heavy-duty commercial use requires Grade A or better. Light personal use may be fine with Grade B for non-critical parts."
+        },
+        {
+          "title": "Budget Constraints",
+          "description": "While higher grades cost more upfront, they often save money long-term through durability and warranty coverage."
+        },
+        {
+          "title": "Warranty Requirements",
+          "description": "Vehicles under manufacturer warranty typically require OEM parts to maintain coverage."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Need Help Choosing the Right Parts?",
+      "description": "Our experts can help you select the perfect quality grade for your specific needs and budget.",
+      "button": "Get Expert Advice"
+    }
+  },
+  "meta": {
+    "home": {
+      "title": "AutoPartCo China - Sinotruk & Weichai Parts Supplier",
+      "description": "Professional supplier of genuine Sinotruk and Weichai auto parts from China. Quality parts, competitive prices, global shipping."
+    },
+    "products": {
+      "title": "Products - AutoPartCo China",
+      "description": "Browse our comprehensive catalog of Sinotruk and Weichai auto parts. Genuine OEM parts with worldwide shipping."
+    },
+    "about": {
+      "title": "About Us - AutoPartCo China",
+      "description": "Learn about Shandong Baijian International Trade Co., Ltd - your trusted partner for Chinese auto parts."
+    },
+    "contact": {
+      "title": "Contact Us - AutoPartCo China",
+      "description": "Get in touch with our team for quotes and inquiries. Professional bilingual customer service."
+    },
+    "faq": {
+      "title": "FAQ - Frequently Asked Questions | AutoPartCo China",
+      "description": "Find answers to common questions about Sinotruk and Weichai auto parts, ordering, shipping, payment, and technical support."
+    },
+    "qualityGuide": {
+      "title": "Auto Parts Quality Guide - OEM, Genuine, Aftermarket | AutoPartCo China",
+      "description": "Comprehensive guide to understanding auto parts quality grades: OEM, Original, Genuine, Grade A, B, C, and Aftermarket. Make informed decisions for your Sinotruk and Weichai parts."
+    }
+  }
+}

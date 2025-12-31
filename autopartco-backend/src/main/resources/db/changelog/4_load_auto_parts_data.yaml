@@ -3,10 +3,87 @@ databaseChangeLog:
       id: 4_load_auto_parts_data
       author: Huseyin Salimov
       changes:
-        # Load data from CSV
+        # Create staging table for CSV data
+        - createTable:
+            tableName: auto_parts_staging
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+              - column:
+                  name: description_zh
+                  type: text
+              - column:
+                  name: description_en
+                  type: text
+              - column:
+                  name: part_number
+                  type: varchar(50)
+              - column:
+                  name: name_en
+                  type: varchar(200)
+              - column:
+                  name: name_zh
+                  type: varchar(200)
+              - column:
+                  name: category_en
+                  type: varchar(100)
+              - column:
+                  name: category_zh
+                  type: varchar(100)
+              - column:
+                  name: manufacturing_country_en
+                  type: varchar(100)
+              - column:
+                  name: manufacturing_country_zh
+                  type: varchar(100)
+              - column:
+                  name: condition_zh
+                  type: varchar(50)
+              - column:
+                  name: condition_en
+                  type: varchar(50)
+              - column:
+                  name: quality
+                  type: varchar(50)
+              - column:
+                  name: car_brand_en
+                  type: varchar(100)
+              - column:
+                  name: car_brand_zh
+                  type: varchar(100)
+              - column:
+                  name: car_model_en
+                  type: varchar(100)
+              - column:
+                  name: car_model_zh
+                  type: varchar(100)
+              - column:
+                  name: part_year
+                  type: varchar(20)
+              - column:
+                  name: factory_part_zh
+                  type: varchar(200)
+              - column:
+                  name: factory_part_en
+                  type: varchar(200)
+              - column:
+                  name: factory_name_zh
+                  type: varchar(200)
+              - column:
+                  name: factory_name_en
+                  type: varchar(200)
+              - column:
+                  name: factory_phone_number
+                  type: varchar(50)
+              - column:
+                  name: factory_site_url
+                  type: varchar(500)
+
+        # Load data from CSV into staging table
         - loadData:
-            file: files/cleared_data.csv
-            tableName: auto_parts
+            file: files/final_data_of_tender.csv
+            tableName: auto_parts_staging
             separator: ;
             quotchar: '"'
             relativeToChangelogFile: false
@@ -36,16 +113,13 @@ databaseChangeLog:
                   name: category_zh
                   type: STRING
               - column:
-                  name: factory_address_en
-                  type: STRING
-              - column:
-                  name: factory_address_zh
-                  type: STRING
-              - column:
                   name: manufacturing_country_en
                   type: STRING
               - column:
                   name: manufacturing_country_zh
+                  type: STRING
+              - column:
+                  name: condition_zh
                   type: STRING
               - column:
                   name: condition_en
@@ -67,7 +141,97 @@ databaseChangeLog:
                   type: STRING
               - column:
                   name: part_year
-                  type: SKIP
+                  type: STRING
+              - column:
+                  name: factory_part_zh
+                  type: STRING
+              - column:
+                  name: factory_part_en
+                  type: STRING
+              - column:
+                  name: factory_name_zh
+                  type: STRING
+              - column:
+                  name: factory_name_en
+                  type: STRING
+              - column:
+                  name: factory_phone_number
+                  type: STRING
+              - column:
+                  name: factory_site_url
+                  type: STRING
+
+        # Insert unique factories from staging table
+        - sql:
+            sql: >
+              INSERT INTO factories (factory_name_en, factory_name_zh, factory_part_en, factory_part_zh, factory_phone_number, factory_site_url)
+              SELECT DISTINCT
+                factory_name_en,
+                factory_name_zh,
+                factory_part_en,
+                factory_part_zh,
+                factory_phone_number,
+                factory_site_url
+              FROM auto_parts_staging
+              WHERE (factory_name_en IS NOT NULL AND factory_name_en != '')
+                 OR (factory_name_zh IS NOT NULL AND factory_name_zh != '');
+
+        # Insert auto_parts data with factory references
+        - sql:
+            sql: >
+              INSERT INTO auto_parts (
+                id,
+                description_zh,
+                description_en,
+                part_number,
+                name_en,
+                name_zh,
+                category_en,
+                category_zh,
+                manufacturing_country_en,
+                manufacturing_country_zh,
+                condition_zh,
+                condition_en,
+                quality,
+                car_brand_en,
+                car_brand_zh,
+                car_model_en,
+                car_model_zh,
+                part_year,
+                factory_id
+              )
+              SELECT
+                s.id,
+                s.description_zh,
+                s.description_en,
+                s.part_number,
+                s.name_en,
+                s.name_zh,
+                s.category_en,
+                s.category_zh,
+                s.manufacturing_country_en,
+                s.manufacturing_country_zh,
+                s.condition_zh,
+                s.condition_en,
+                s.quality,
+                s.car_brand_en,
+                s.car_brand_zh,
+                s.car_model_en,
+                s.car_model_zh,
+                CASE
+                  WHEN s.part_year IS NOT NULL AND s.part_year != ''
+                  THEN CAST(FLOOR(CAST(REPLACE(REPLACE(s.part_year, ' ', ''), ',', '.') AS NUMERIC)) AS INTEGER)
+                  ELSE NULL
+                END as part_year,
+                f.id as factory_id
+              FROM auto_parts_staging s
+              LEFT JOIN factories f ON
+                COALESCE(s.factory_name_en, '') = COALESCE(f.factory_name_en, '')
+                AND COALESCE(s.factory_name_zh, '') = COALESCE(f.factory_name_zh, '')
+                AND COALESCE(s.factory_part_en, '') = COALESCE(f.factory_part_en, '')
+                AND COALESCE(s.factory_part_zh, '') = COALESCE(f.factory_part_zh, '')
+                AND COALESCE(s.factory_phone_number, '') = COALESCE(f.factory_phone_number, '')
+                AND COALESCE(s.factory_site_url, '') = COALESCE(f.factory_site_url, '');
 
         # Delete rows with language-specific data (non-Chinese parts)
         - sql:
@@ -142,3 +306,7 @@ databaseChangeLog:
         - sql:
             sql: >
               SELECT setval('auto_parts_id_seq', (SELECT MAX(id) FROM auto_parts));
+
+        # Drop the staging table
+        - dropTable:
+            tableName: auto_parts_staging

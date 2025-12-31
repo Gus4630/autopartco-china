@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3_5_create_factories_table
+      author: Huseyin Salimov
+      changes:
+        # Create factories table
+        - createTable:
+            tableName: factories
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: factory_name_en
+                  type: varchar(200)
+              - column:
+                  name: factory_name_zh
+                  type: varchar(200)
+              - column:
+                  name: factory_part_en
+                  type: varchar(200)
+              - column:
+                  name: factory_part_zh
+                  type: varchar(200)
+              - column:
+                  name: factory_phone_number
+                  type: varchar(50)
+              - column:
+                  name: factory_site_url
+                  type: varchar(500)
+              - column:
+                  name: created_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: updated_at
+                  type: timestamp(3)
+                  defaultValueComputed: now()
+              - column:
+                  name: created_by
+                  type: UUID
+              - column:
+                  name: updated_by
+                  type: UUID
+
+        # Create index on factory names for lookups
+        - createIndex:
+            tableName: factories
+            indexName: idx_factories_name_en
+            columns:
+              - column:
+                  name: factory_name_en
+
+        # Add factory_id foreign key column to auto_parts
+        - addColumn:
+            tableName: auto_parts
+            columns:
+              - column:
+                  name: factory_id
+                  type: bigint
+
+        # Create foreign key constraint
+        - addForeignKeyConstraint:
+            baseTableName: auto_parts
+            baseColumnNames: factory_id
+            constraintName: fk_auto_parts_factory
+            referencedTableName: factories
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+        # Create index on factory_id for better query performance
+        - createIndex:
+            tableName: auto_parts
+            indexName: idx_auto_parts_factory_id
+            columns:
+              - column:
+                  name: factory_id

@@ -24,9 +24,6 @@ public class AutoPartResponse {
     private String categoryEn;
     private String categoryZh;
 
-    private String factoryAddressEn;
-    private String factoryAddressZh;
-
     private String manufacturingCountryEn;
     private String manufacturingCountryZh;
 
@@ -44,6 +41,8 @@ public class AutoPartResponse {
     private Integer partYear;
 
     private Boolean isActive;
+
+    private FactoryResponse factory;
 
     private List<FileResponse> files;
 }

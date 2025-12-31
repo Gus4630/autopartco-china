@@ -1,15 +1,17 @@
 <template>
   <div class="bg-gray-50">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
-      <div class="container-custom">
+    <section class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16 relative overflow-hidden">
+      <!-- Subtle red accent overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-accent-900/30 via-transparent to-accent-900/20"></div>
+      <div class="container-custom relative z-10">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           {{ t('qualityGuide.title') }}
         </h1>
-        <p class="text-xl text-primary-100 mb-6">
+        <p class="text-xl text-gray-200 mb-6">
           {{ t('qualityGuide.subtitle') }}
         </p>
-        <p class="text-lg text-primary-50 max-w-3xl">
+        <p class="text-lg text-gray-300 max-w-3xl">
           {{ t('qualityGuide.intro') }}
         </p>
       </div>
@@ -116,7 +118,7 @@
           <div
             v-for="(factor, index) in selectionFactors"
             :key="index"
-            class="bg-gray-50 rounded-lg p-6 border-l-4 border-primary-600"
+            class="bg-gray-50 rounded-lg p-6 border-l-4 border-accent-600"
           >
             <h3 class="text-xl font-semibold text-gray-900 mb-2">
               {{ factor.title }}
@@ -130,15 +132,17 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-primary-600 text-white">
-      <div class="container-custom text-center">
+    <section class="py-16 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative overflow-hidden">
+      <!-- Subtle red accent overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-accent-900/20 to-transparent"></div>
+      <div class="container-custom text-center relative z-10">
         <h2 class="text-3xl font-bold mb-4">
           {{ t('qualityGuide.cta.title') }}
         </h2>
-        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {{ t('qualityGuide.cta.description') }}
         </p>
-        <NuxtLink :to="localePath('/contact')" class="btn-primary bg-white text-primary-600 hover:bg-gray-100 inline-block">
+        <NuxtLink :to="localePath('/contact')" class="btn-accent inline-block">
           {{ t('qualityGuide.cta.button') }}
         </NuxtLink>
       </div>
@@ -153,6 +157,17 @@ import GradeComparison from '~/components/quality/GradeComparison.vue'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
+
+// Define level values for each grade
+const gradeLevels = {
+  oem: 5,
+  original: 5,
+  genuine: 4,
+  a: 4,
+  b: 3,
+  c: 2,
+  aftermarket: 3
+}
 
 // Get all grades from translations
 const getGrade = (gradeKey) => {
@@ -178,12 +193,10 @@ const getGrade = (gradeKey) => {
     consIndex++
   }
 
-  const levelValue = t(`qualityGuide.grades.${gradeKey}.level`)
-
   return {
     badge: t(`qualityGuide.grades.${gradeKey}.badge`),
     title: t(`qualityGuide.grades.${gradeKey}.title`),
-    level: typeof levelValue === 'number' ? levelValue : parseInt(levelValue) || 3,
+    level: gradeLevels[gradeKey] || 3,
     description: t(`qualityGuide.grades.${gradeKey}.description`),
     price: t(`qualityGuide.grades.${gradeKey}.price`),
     warranty: t(`qualityGuide.grades.${gradeKey}.warranty`),

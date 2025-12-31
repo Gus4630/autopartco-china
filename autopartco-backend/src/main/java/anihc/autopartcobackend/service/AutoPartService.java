@@ -5,7 +5,9 @@ import anihc.autopartcobackend.dao.repository.AutoPartRepository;
 import anihc.autopartcobackend.exception.DataNotFoundException;
 import anihc.autopartcobackend.model.response.AutoPartResponse;
 import anihc.autopartcobackend.model.response.CategoryResponse;
+import anihc.autopartcobackend.model.response.FactoryResponse;
 import anihc.autopartcobackend.model.response.FileResponse;
+import anihc.autopartcobackend.specification.AutoPartSpecification;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -35,13 +38,10 @@ public class AutoPartService {
     @Transactional
     public Page<AutoPartResponse> getAllParts(String category, String search, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<AutoPartEntity> entities;
 
-        if (category != null && !category.isEmpty()) {
-            entities = autoPartRepository.findByCategory(category, pageable);
-        } else {
-            entities = autoPartRepository.findAll(pageable);
-        }
+        // Use Specification pattern for type-safe filtering and searching
+        Specification<AutoPartEntity> spec = AutoPartSpecification.getSpecification(category, search);
+        Page<AutoPartEntity> entities = autoPartRepository.findAll(spec, pageable);
 
         return entities.map(this::mapToResponse);
     }
@@ -89,8 +89,6 @@ public class AutoPartService {
                 .descriptionZh(entity.getDescriptionZh())
                 .categoryEn(entity.getCategoryEn())
                 .categoryZh(entity.getCategoryZh())
-                .factoryAddressEn(entity.getFactoryAddressEn())
-                .factoryAddressZh(entity.getFactoryAddressZh())
                 .manufacturingCountryEn(entity.getManufacturingCountryEn())
                 .manufacturingCountryZh(entity.getManufacturingCountryZh())
                 .conditionEn(entity.getConditionEn())
@@ -102,6 +100,16 @@ public class AutoPartService {
                 .carModelZh(entity.getCarModelZh())
                 .partYear(entity.getPartYear())
                 .isActive(entity.getIsActive())
+                .factory(entity.getFactory() == null ? null :
+                    FactoryResponse.builder()
+                        .id(entity.getFactory().getId())
+                        .factoryNameEn(entity.getFactory().getFactoryNameEn())
+                        .factoryNameZh(entity.getFactory().getFactoryNameZh())
+                        .factoryPartEn(entity.getFactory().getFactoryPartEn())
+                        .factoryPartZh(entity.getFactory().getFactoryPartZh())
+                        .factoryPhoneNumber(entity.getFactory().getFactoryPhoneNumber())
+                        .factorySiteUrl(entity.getFactory().getFactorySiteUrl())
+                        .build())
                 .files(entity.getFiles() == null ? null :
                     entity.getFiles().stream()
                         .map(file -> FileResponse.builder()

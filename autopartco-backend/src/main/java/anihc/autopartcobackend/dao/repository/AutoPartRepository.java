@@ -25,17 +25,6 @@ public interface AutoPartRepository extends JpaRepository<AutoPartEntity, Long>,
     @Query(value = "SELECT COUNT(*) > 0 FROM auto_parts WHERE id = :autoPartId", nativeQuery = true)
     boolean existsByIdIgnoringActiveStatus(@Param("autoPartId") Long autoPartId);
 
-    @Query("SELECT ap FROM AutoPartEntity ap WHERE "
-            + "(:categoryEn IS NULL OR ap.categoryEn = :categoryEn) AND "
-            + "(:search IS NULL OR LOWER(CAST(ap.nameEn AS string)) LIKE LOWER(CONCAT('%', :search, '%')) OR "
-            + "LOWER(CAST(ap.nameZh AS string)) LIKE LOWER(CONCAT('%', :search, '%')) OR "
-            + "LOWER(CAST(ap.partNumber AS string)) LIKE LOWER(CONCAT('%', :search, '%')))")
-    Page<AutoPartEntity> findAllWithFilters(
-            @Param("categoryEn") String categoryEn,
-            @Param("search") String search,
-            Pageable pageable
-    );
-
     @Query("SELECT DISTINCT ap FROM AutoPartEntity ap WHERE ap.categoryEn = :category")
     Page<AutoPartEntity> findByCategory(@Param("category") String category, Pageable pageable);
 

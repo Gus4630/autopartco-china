@@ -7,7 +7,7 @@
           <h3 class="text-white text-lg font-semibold mb-4">
             {{ t('footer.company') }}
           </h3>
-          <div class="text-xl font-bold text-primary-400 mb-2">
+          <div class="text-xl font-bold text-gray-100 mb-2">
             AutoPartCo
           </div>
           <p class="text-sm mb-4">
@@ -27,7 +27,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/products')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ t('footer.allProducts') }}
               </NuxtLink>
@@ -35,7 +35,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/categories')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ t('footer.categories') }}
               </NuxtLink>
@@ -52,7 +52,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/faq')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 FAQ
               </NuxtLink>
@@ -60,7 +60,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/quality-guide')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ locale === 'zh' ? '质量指南' : 'Quality Guide' }}
               </NuxtLink>
@@ -68,7 +68,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/shipping')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ t('footer.shipping') }}
               </NuxtLink>
@@ -76,7 +76,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/about')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ t('footer.aboutUs') }}
               </NuxtLink>
@@ -84,7 +84,7 @@
             <li>
               <NuxtLink
                 :to="localePath('/contact')"
-                class="text-sm hover:text-primary-400 transition-colors"
+                class="text-sm hover:text-accent-400 transition-colors"
               >
                 {{ t('footer.contactUs') }}
               </NuxtLink>
@@ -100,19 +100,19 @@
           <ul class="space-y-2 text-sm">
             <li class="flex items-start">
               <span class="font-medium mr-2">{{ t('footer.phone') }}:</span>
-              <a :href="`tel:${config.public.companyPhone}`" class="hover:text-primary-400">
+              <a :href="`tel:${config.public.companyPhone}`" class="hover:text-accent-400 transition-colors">
                 {{ config.public.companyPhone }}
               </a>
             </li>
             <li class="flex items-start">
               <span class="font-medium mr-2">{{ t('footer.landline') }}:</span>
-              <a :href="`tel:${config.public.companyLandline}`" class="hover:text-primary-400">
+              <a :href="`tel:${config.public.companyLandline}`" class="hover:text-accent-400 transition-colors">
                 {{ config.public.companyLandline }}
               </a>
             </li>
             <li class="flex items-start">
               <span class="font-medium mr-2">{{ t('footer.email') }}:</span>
-              <a :href="`mailto:${config.public.companyEmail}`" class="hover:text-primary-400">
+              <a :href="`mailto:${config.public.companyEmail}`" class="hover:text-accent-400 transition-colors">
                 {{ config.public.companyEmail }}
               </a>
             </li>
@@ -122,7 +122,7 @@
                 :href="`https://wa.me/${config.public.whatsappNumber}`"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="hover:text-primary-400"
+                class="hover:text-accent-400 transition-colors"
               >
                 +{{ config.public.whatsappNumber }}
               </a>

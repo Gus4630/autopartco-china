@@ -14,11 +14,15 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
   }
 
   .btn-secondary {
-    @apply bg-secondary-200 hover:bg-secondary-300 text-secondary-900 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-accent-600 hover:bg-accent-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .btn-accent {
+    @apply bg-gradient-to-r from-accent-600 to-accent-700 hover:from-accent-700 hover:to-accent-800 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
   }
 
   .badge {
@@ -26,31 +30,69 @@
   }
 
   .badge-new {
-    @apply badge bg-green-100 text-green-800;
+    @apply badge bg-accent-100 text-accent-800 ring-1 ring-accent-200;
   }
 
   .badge-used {
-    @apply badge bg-blue-100 text-blue-800;
+    @apply badge bg-blue-100 text-blue-800 ring-1 ring-blue-200;
   }
 
   .badge-refurbished {
-    @apply badge bg-yellow-100 text-yellow-800;
+    @apply badge bg-yellow-100 text-yellow-800 ring-1 ring-yellow-200;
   }
 
   .badge-oem {
-    @apply badge bg-purple-100 text-purple-800;
+    @apply badge bg-purple-100 text-purple-800 ring-1 ring-purple-200;
   }
 
   .badge-genuine {
-    @apply badge bg-indigo-100 text-indigo-800;
+    @apply badge bg-indigo-100 text-indigo-800 ring-1 ring-indigo-200;
+  }
+
+  .badge-a {
+    @apply badge bg-accent-100 text-accent-800 ring-1 ring-accent-200;
+  }
+
+  .badge-b {
+    @apply badge bg-orange-100 text-orange-800 ring-1 ring-orange-200;
+  }
+
+  .badge-c {
+    @apply badge bg-gray-100 text-gray-800 ring-1 ring-gray-200;
+  }
+
+  .badge-original {
+    @apply badge bg-accent-100 text-accent-800 ring-1 ring-accent-200;
+  }
+
+  .badge-aftermarket {
+    @apply badge bg-blue-100 text-blue-800 ring-1 ring-blue-200;
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-md overflow-hidden;
+    @apply bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-200;
+  }
+
+  .card:hover {
+    @apply shadow-xl;
   }
 
   .container-custom {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Link styles with red accents */
+  a.link-accent {
+    @apply text-accent-600 hover:text-accent-700 transition-colors duration-200;
+  }
+
+  /* Decorative elements */
+  .accent-border {
+    @apply border-l-4 border-accent-600;
+  }
+
+  .accent-divider {
+    @apply h-1 w-20 bg-gradient-to-r from-accent-600 to-accent-400 rounded-full;
   }
 }
 

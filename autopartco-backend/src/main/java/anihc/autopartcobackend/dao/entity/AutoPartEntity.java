@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -19,8 +20,8 @@ import org.hibernate.annotations.SQLRestriction;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = "files")
-@EqualsAndHashCode(callSuper = true, exclude = "files")
+@ToString(callSuper = true, exclude = {"files", "factory"})
+@EqualsAndHashCode(callSuper = true, exclude = {"files", "factory"})
 @Entity
 @Table(name = "auto_parts")
 @SQLRestriction("is_active = true")
@@ -52,13 +53,6 @@ public class AutoPartEntity extends BaseEntity {
 
     @Column(name = "category_zh", length = 100)
     private String categoryZh;
-
-    // Factory Address
-    @Column(name = "factory_address_en", length = 500)
-    private String factoryAddressEn;
-
-    @Column(name = "factory_address_zh", length = 500)
-    private String factoryAddressZh;
 
     // Manufacturing Country
     @Column(name = "manufacturing_country_en", length = 100)
@@ -99,6 +93,11 @@ public class AutoPartEntity extends BaseEntity {
     // Status
     @Column(name = "is_active")
     private Boolean isActive;
+
+    // Factory relationship
+    @ManyToOne
+    @JoinColumn(name = "factory_id")
+    private FactoryEntity factory;
 
     // Files relationship
     @ManyToMany

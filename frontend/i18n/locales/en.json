@@ -19,7 +19,7 @@
     "chinese": "中文"
   },
   "header": {
-    "tagline": "Professional Supplier of Sinotruk & Weichai Parts",
+    "tagline": "Professional Supplier of Chinese Automotive Parts",
     "resources": "Resources",
     "faq": "FAQ",
     "qualityGuide": "Quality Guide"
@@ -79,7 +79,7 @@
   "home": {
     "hero": {
       "title": "Quality Auto Parts from China",
-      "subtitle": "Specialized in Sinotruk and Weichai parts with competitive prices and reliable shipping worldwide",
+      "subtitle": "Specialized in automotive parts from China with competitive prices and reliable shipping worldwide",
       "cta": "Browse Products"
     },
     "features": {
@@ -103,7 +103,7 @@
     },
     "about": {
       "title": "About Our Company",
-      "description": "Shandong Baijian International Trade Co., Ltd is a professional supplier of genuine auto parts, specializing in Sinotruk (CNHTC) and Weichai parts. We are committed to providing high-quality parts at competitive prices with excellent customer service.",
+      "description": "Shandong Baijian International Trade Co., Ltd is a professional supplier of genuine auto parts, specializing in genuine automotive parts. We are committed to providing high-quality parts at competitive prices with excellent customer service.",
       "experience": "Years of Experience in Auto Parts Export",
       "customers": "Satisfied Customers Worldwide",
       "parts": "Parts in Stock"
@@ -227,7 +227,7 @@
       },
       "q4": {
         "question": "What brands do you specialize in?",
-        "answer": "We specialize in Sinotruk (CNHTC) and Weichai parts. This includes all Sinotruk models (HOWO, SITRAK, HOHAN) and Weichai engine series. Our expertise in these brands ensures you get the right parts with expert support."
+        "answer": "We specialize in genuine automotive parts. This includes all Chinese truck models (various truck models) and diesel engine series. Our expertise in these brands ensures you get the right parts with expert support."
       },
       "q5": {
         "question": "How do I find compatible parts for my vehicle?",
@@ -307,7 +307,7 @@
       },
       "q2": {
         "question": "Can you help me identify the right part?",
-        "answer": "Absolutely! Our team has extensive knowledge of Sinotruk and Weichai parts. Send us your vehicle details, photos of the part you need, or the part number, and we'll help identify the exact part you need."
+        "answer": "Absolutely! Our team has extensive knowledge of automotive parts from China. Send us your vehicle details, photos of the part you need, or the part number, and we'll help identify the exact part you need."
       },
       "q3": {
         "question": "Do you provide technical specifications?",
@@ -379,7 +379,7 @@
         "title": "Original/Genuine Parts",
         "fullName": "Factory Original Parts",
         "level": 5,
-        "description": "Genuine parts are authentic parts supplied through official brand channels. For Sinotruk and Weichai, these are parts bearing official branding and certifications.",
+        "description": "Genuine parts are authentic parts supplied through official brand channels. For Chinese automotive, these are parts bearing official branding and certifications.",
         "price": "$$$$$",
         "warranty": "12-18 months",
         "bestFor": "New vehicles, critical systems",
@@ -550,12 +550,12 @@
   },
   "meta": {
     "home": {
-      "title": "AutoPartCo China - Sinotruk & Weichai Parts Supplier",
-      "description": "Professional supplier of genuine Sinotruk and Weichai auto parts from China. Quality parts, competitive prices, global shipping."
+      "title": "AutoPartCo China - Chinese Automotive Parts Supplier",
+      "description": "Professional supplier of genuine Chinese automotive auto parts from China. Quality parts, competitive prices, global shipping."
     },
     "products": {
       "title": "Products - AutoPartCo China",
-      "description": "Browse our comprehensive catalog of Sinotruk and Weichai auto parts. Genuine OEM parts with worldwide shipping."
+      "description": "Browse our comprehensive catalog of Chinese automotive auto parts. Genuine OEM parts with worldwide shipping."
     },
     "about": {
       "title": "About Us - AutoPartCo China",
@@ -567,11 +567,11 @@
     },
     "faq": {
       "title": "FAQ - Frequently Asked Questions | AutoPartCo China",
-      "description": "Find answers to common questions about Sinotruk and Weichai auto parts, ordering, shipping, payment, and technical support."
+      "description": "Find answers to common questions about Chinese automotive auto parts, ordering, shipping, payment, and technical support."
     },
     "qualityGuide": {
       "title": "Auto Parts Quality Guide - OEM, Genuine, Aftermarket | AutoPartCo China",
-      "description": "Comprehensive guide to understanding auto parts quality grades: OEM, Original, Genuine, Grade A, B, C, and Aftermarket. Make informed decisions for your Sinotruk and Weichai parts."
+      "description": "Comprehensive guide to understanding auto parts quality grades: OEM, Original, Genuine, Grade A, B, C, and Aftermarket. Make informed decisions for your automotive parts from China."
     }
   }
 }

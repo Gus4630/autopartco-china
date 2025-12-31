@@ -1,12 +1,14 @@
 <template>
   <div class="bg-gray-50">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
-      <div class="container-custom">
+    <section class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-16 relative overflow-hidden">
+      <!-- Subtle red accent overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-accent-900/30 via-transparent to-accent-900/20"></div>
+      <div class="container-custom relative z-10">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           {{ t('shipping.title') }}
         </h1>
-        <p class="text-xl text-primary-100">
+        <p class="text-xl text-gray-200">
           {{ t('shipping.subtitle') }}
         </p>
       </div>
@@ -32,7 +34,7 @@
             <p class="text-gray-700 mb-4">
               {{ t('shipping.methods.sea.description') }}
             </p>
-            <p class="text-sm text-primary-600 font-medium">
+            <p class="text-sm text-accent-600 font-medium">
               {{ t('shipping.methods.sea.bestFor') }}
             </p>
           </div>
@@ -50,7 +52,7 @@
             <p class="text-gray-700 mb-4">
               {{ t('shipping.methods.air.description') }}
             </p>
-            <p class="text-sm text-primary-600 font-medium">
+            <p class="text-sm text-accent-600 font-medium">
               {{ t('shipping.methods.air.bestFor') }}
             </p>
           </div>
@@ -68,7 +70,7 @@
             <p class="text-gray-700 mb-4">
               {{ t('shipping.methods.express.description') }}
             </p>
-            <p class="text-sm text-primary-600 font-medium">
+            <p class="text-sm text-accent-600 font-medium">
               {{ t('shipping.methods.express.bestFor') }}
             </p>
           </div>
@@ -87,7 +89,7 @@
             <!-- Step 1 -->
             <div class="flex gap-6">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                <div class="w-12 h-12 bg-accent-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   1
                 </div>
               </div>
@@ -104,7 +106,7 @@
             <!-- Step 2 -->
             <div class="flex gap-6">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                <div class="w-12 h-12 bg-accent-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   2
                 </div>
               </div>
@@ -121,7 +123,7 @@
             <!-- Step 3 -->
             <div class="flex gap-6">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                <div class="w-12 h-12 bg-accent-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   3
                 </div>
               </div>
@@ -138,7 +140,7 @@
             <!-- Step 4 -->
             <div class="flex gap-6">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                <div class="w-12 h-12 bg-accent-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   4
                 </div>
               </div>
@@ -155,7 +157,7 @@
             <!-- Step 5 -->
             <div class="flex gap-6">
               <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                <div class="w-12 h-12 bg-accent-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
                   5
                 </div>
               </div>
@@ -184,7 +186,7 @@
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0">
-                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
@@ -203,7 +205,7 @@
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0">
-                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -223,7 +225,7 @@
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0">
-                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
@@ -242,7 +244,7 @@
           <div class="bg-gray-50 rounded-lg p-6">
             <div class="flex items-start gap-4">
               <div class="flex-shrink-0">
-                <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
@@ -261,15 +263,17 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-16 bg-primary-600 text-white">
-      <div class="container-custom text-center">
+    <section class="py-16 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative overflow-hidden">
+      <!-- Subtle red accent overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-accent-900/20 to-transparent"></div>
+      <div class="container-custom text-center relative z-10">
         <h2 class="text-3xl font-bold mb-4">
           {{ t('shipping.cta.title') }}
         </h2>
-        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {{ t('shipping.cta.description') }}
         </p>
-        <NuxtLink :to="localePath('/contact')" class="btn-primary bg-white text-primary-600 hover:bg-gray-100 inline-block">
+        <NuxtLink :to="localePath('/contact')" class="btn-accent inline-block">
           {{ t('shipping.cta.button') }}
         </NuxtLink>
       </div>

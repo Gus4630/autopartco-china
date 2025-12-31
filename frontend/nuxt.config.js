@@ -49,8 +49,8 @@ export default defineNuxtConfig({
   // SEO Configuration
   site: {
     url: 'https://autopartco-china.com',
-    name: 'AutoPartCo China - Sinotruk & Weichai Parts Supplier',
-    description: 'Professional supplier of genuine Sinotruk and Weichai auto parts from China. Quality parts, competitive prices, global shipping.',
+    name: 'AutoPartCo China - Chinese Automotive Parts Supplier',
+    description: 'Professional supplier of genuine automotive parts from China. Complete range of OEM and aftermarket parts, competitive prices, global shipping.',
     defaultLocale: 'en'
   },
 
@@ -87,6 +87,8 @@ export default defineNuxtConfig({
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
+      title: 'AutoPartCo China - Chinese Automotive Parts Supplier',
+      titleTemplate: '%s | AutoPartCo China',
       htmlAttrs: {
         lang: 'en'
       },
@@ -94,7 +96,8 @@ export default defineNuxtConfig({
         { name: 'format-detection', content: 'telephone=no' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'alternate icon', type: 'image/x-icon', href: '/favicon.ico' }
       ]
     }
   },

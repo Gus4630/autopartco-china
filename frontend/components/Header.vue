@@ -1,10 +1,13 @@
 <template>
   <header class="bg-white shadow-md sticky top-0 z-50">
+    
     <div class="container-custom">
+      
       <div class="flex items-center justify-between h-16">
+        
         <!-- Logo and Company Name -->
         <NuxtLink :to="localePath('/')" class="flex items-center space-x-3">
-          <div class="text-2xl font-bold text-primary-600">
+          <div class="text-2xl font-bold bg-gradient-to-r from-gray-900 to-accent-700 bg-clip-text text-transparent">
             AutoPartCo
           </div>
           <div class="hidden md:block text-sm text-gray-600">
@@ -16,32 +19,32 @@
         <nav class="hidden md:flex items-center space-x-6">
           <NuxtLink
             :to="localePath('/')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.home') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/products')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.products') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/categories')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.categories') }}
           </NuxtLink>
           <NuxtLink
             v-if="false"
             :to="localePath('/brands')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.brands') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/about')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.about') }}
           </NuxtLink>
@@ -50,7 +53,7 @@
           <div class="relative">
             <button
               @click="toggleResourcesMenu"
-              class="flex items-center space-x-1 text-gray-700 hover:text-primary-600 transition-colors"
+              class="flex items-center space-x-1 text-gray-700 hover:text-accent-500 transition-colors"
             >
               <span>{{ t('header.resources') }}</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,6 +64,13 @@
               v-if="resourcesMenuOpen"
               class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 border border-gray-200 z-10"
             >
+              <NuxtLink
+                :to="localePath('/our-factories')"
+                @click="resourcesMenuOpen = false"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                {{ currentLocale === 'zh' ? '我们的工厂' : 'Our Factories' }}
+              </NuxtLink>
               <NuxtLink
                 :to="localePath('/faq')"
                 @click="resourcesMenuOpen = false"
@@ -87,7 +97,7 @@
 
           <NuxtLink
             :to="localePath('/contact')"
-            class="text-gray-700 hover:text-primary-600 transition-colors"
+            class="text-gray-700 hover:text-accent-500 transition-colors"
           >
             {{ t('common.contact') }}
           </NuxtLink>
@@ -99,7 +109,7 @@
           <div class="relative">
             <button
               @click="toggleLanguageMenu"
-              class="flex items-center space-x-1 text-gray-700 hover:text-primary-600 transition-colors"
+              class="flex items-center space-x-1 text-gray-700 hover:text-accent-500 transition-colors"
             >
               <span>{{ currentLocale === 'en' ? 'EN' : '中文' }}</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,7 +134,7 @@
           <!-- Contact Button -->
           <NuxtLink
             :to="localePath('/contact')"
-            class="btn-primary hidden md:inline-block"
+            class="btn-accent hidden md:inline-block"
           >
             {{ t('common.contactUs') }}
           </NuxtLink>
@@ -163,21 +173,21 @@
           <NuxtLink
             :to="localePath('/')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.home') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/products')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.products') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/categories')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.categories') }}
           </NuxtLink>
@@ -185,14 +195,14 @@
             v-if="false"
             :to="localePath('/brands')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.brands') }}
           </NuxtLink>
           <NuxtLink
             :to="localePath('/about')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.about') }}
           </NuxtLink>
@@ -201,7 +211,7 @@
           <div class="px-2">
             <button
               @click="toggleMobileResourcesMenu"
-              class="flex items-center justify-between w-full text-gray-700 hover:text-primary-600 transition-colors"
+              class="flex items-center justify-between w-full text-gray-700 hover:text-accent-500 transition-colors"
             >
               <span>{{ t('header.resources') }}</span>
               <svg
@@ -215,23 +225,30 @@
             </button>
             <div v-if="mobileResourcesMenuOpen" class="ml-4 mt-2 space-y-2">
               <NuxtLink
+                :to="localePath('/our-factories')"
+                @click="closeMobileMenu"
+                class="block text-sm text-gray-600 hover:text-accent-500 transition-colors"
+              >
+                {{ currentLocale === 'zh' ? '我们的工厂' : 'Our Factories' }}
+              </NuxtLink>
+              <NuxtLink
                 :to="localePath('/faq')"
                 @click="closeMobileMenu"
-                class="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                class="block text-sm text-gray-600 hover:text-accent-500 transition-colors"
               >
                 {{ t('header.faq') }}
               </NuxtLink>
               <NuxtLink
                 :to="localePath('/quality-guide')"
                 @click="closeMobileMenu"
-                class="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                class="block text-sm text-gray-600 hover:text-accent-500 transition-colors"
               >
                 {{ t('header.qualityGuide') }}
               </NuxtLink>
               <NuxtLink
                 :to="localePath('/shipping')"
                 @click="closeMobileMenu"
-                class="block text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                class="block text-sm text-gray-600 hover:text-accent-500 transition-colors"
               >
                 {{ t('common.shipping') }}
               </NuxtLink>
@@ -241,7 +258,7 @@
           <NuxtLink
             :to="localePath('/contact')"
             @click="closeMobileMenu"
-            class="text-gray-700 hover:text-primary-600 transition-colors px-2"
+            class="text-gray-700 hover:text-accent-500 transition-colors px-2"
           >
             {{ t('common.contact') }}
           </NuxtLink>
