@@ -4,10 +4,7 @@
     <section class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-20 relative overflow-hidden">
       <!-- Waving Chinese Flag Background (GIF) -->
       <div class="absolute inset-0 opacity-70">
-      <video autoplay muted loop class="w-full h-full object-cover" playbackRate="0.5">
-        <source src="/china-flag-waving.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        <img src="/china-flag-waving.gif" alt="Chinese flag" class="w-full h-full object-cover" />
       </div>
 
       <!-- Subtle red accent overlay -->

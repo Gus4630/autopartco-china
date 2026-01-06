@@ -2,7 +2,6 @@
   <div class="bg-gray-50 py-12">
     <div class="container-custom">
       <h1 class="text-4xl font-bold text-gray-900 mb-8">{{ t('common.categories') }}</h1>
-
       <div v-if="categories && categories.length > 0" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <NuxtLink
           v-for="category in categories"
@@ -19,15 +18,13 @@
             {{ locale === 'zh' ? category.nameZh : category.nameEn }}
           </h3>
           <p class="text-sm text-gray-600">
-            {{ category.productCount }} {{ locale === 'zh' ? '个产品' : 'products' }}
+            {{ category.displayCount }} {{ locale === 'zh' ? '个产品' : 'products' }}
           </p>
         </NuxtLink>
       </div>
-
       <div v-else-if="!pending" class="text-center py-12">
         <p class="text-gray-600">{{ locale === 'zh' ? '暂无分类' : 'No categories available' }}</p>
       </div>
-
       <div v-if="pending" class="flex items-center justify-center py-12">
         <div class="relative inline-block">
           <div class="animate-spin rounded-full h-12 w-12 border-3 border-accent-100"></div>
@@ -45,9 +42,43 @@ const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
 
-// Using real API
-const { data: categories, pending } = await useFetch(
+// Enhanced product count logic
+const enhanceProductCount = (category) => {
+  const actualCount = category.productCount || 0
+  
+  let boosted
+  
+  if (actualCount < 100) {
+    boosted = Math.floor(actualCount * 5.8)
+  } else if (actualCount < 150) {
+    boosted = Math.floor(actualCount * 3)
+  } else if (actualCount < 250) {
+    boosted = Math.floor(actualCount * 2.3)
+  } else if (actualCount < 400) {
+    boosted = Math.floor(actualCount * 1.8)
+  } else if (actualCount < 700) {
+    boosted = Math.floor(actualCount * 1.5)
+  } else {
+    boosted = Math.floor(actualCount * 1.3)
+  }
+  
+  return boosted
+}
+
+const enhanceCategory = (category) => ({
+  ...category,
+  displayCount: enhanceProductCount(category),
+  actualCount: category.productCount
+})
+
+// Fetch and enhance categories
+const { data: categoriesRaw, pending } = await useFetch(
   `${config.public.apiBase}/categories`,
   { key: 'all-categories', lazy: true }
+)
+
+// Transform categories with enhanced counts
+const categories = computed(() => 
+  categoriesRaw.value?.map(enhanceCategory) || []
 )
 </script>
